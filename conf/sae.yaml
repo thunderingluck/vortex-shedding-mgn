@@ -1,0 +1,25 @@
+sae:
+  # embedding extraction
+  split: test
+  num_samples: ${num_test_samples}
+  num_steps: ${num_test_time_steps}
+  out_dir: ./sae_embeddings
+
+  # SAE model
+  d_in: 128
+  expansion: 8     # κ=8 :contentReference[oaicite:11]{index=11}
+  lam: 3.0e-4      # λ=3e-4 :contentReference[oaicite:12]{index=12}
+
+  train:
+    lr: 1.0e-3
+    snapshot_batch_size: 4   # 4 snapshots concatenated (variable N). Adjust for GPU mem.
+    num_workers: 2
+    max_steps: 20000
+    log_every: 50
+    ckpt_every: 200
+    ckpt_dir: ./sae_ckpts
+
+  analysis:
+    metric: variance   # variance | mean_abs | entropy :contentReference[oaicite:13]{index=13}
+    topk: 50
+    eta: 100          # number of top active nodes to visualize :contentReference[oaicite:14]{index=14}
