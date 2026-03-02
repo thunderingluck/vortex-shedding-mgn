@@ -1,0 +1,4 @@
+Upstream repository: https://github.com/NVIDIA/physicsnemo
+Commit hash: 9b94df7f0fc514575fa72299a2b711c8e707e31f
+Local path: /orcd/home/002/evag/code/physicsnemo
+Install method: pip install -e .

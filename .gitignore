@@ -1,0 +1,36 @@
+# ==== Data ====
+raw_dataset/
+*.h5
+*.npz
+*.vtk
+*.vtu
+*.csv
+
+# ==== Training outputs ====
+outputs/
+checkpoints/
+*.pt
+*.ckpt
+*.pth
+
+# ==== Slurm logs ====
+*.out
+*.err
+
+# ==== WandB ====
+wandb/
+*.wandb
+
+# ==== Python ====
+__pycache__/
+*.pyc
+
+# ==== Hydra ====
+.multirun/
+hydra/
+
+# ==== Misc ====
+*.log
+*.png
+*.mp4
+.DS_Store
