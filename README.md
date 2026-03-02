@@ -1,3 +1,58 @@
+# Vortex Shedding – MeshGraphNet Experiment
+
+This repository contains modifications to the NVIDIA PhysicsNeMo
+`vortex_shedding_mgn` example.
+
+## Upstream Dependency
+
+PhysicsNeMo commit used:
+
+https://github.com/NVIDIA/physicsnemo
+
+Commit:
+b92c6f6f90d7ad6157f4e504cc66a17b366dd55f
+## Setup Instructions
+
+1. Clone PhysicsNeMo at the correct commit:
+
+git clone https://github.com/NVIDIA/physicsnemo.git
+cd physicsnemo
+git checkout b92c6f6f90d7ad6157f4e504cc66a17b366dd55f
+
+
+2. Create and activate environment:
+
+python -m venv .venv
+source .venv/bin/activate
+
+3. Install PhysicsNeMo:
+
+pip install -e .
+
+4. Clone this experiment repo:
+
+git clone https://github.com/thunderingluck/vortex-shedding-mgn.git
+
+5. Copy this folder into:
+
+physicsnemo/examples/cfd/
+
+6. Download dataset:
+
+bash download_dataset.sh
+
+## Training
+
+sbatch run_vortex_training.sbatch
+
+or locally:
+
+python train.py
+
+
+
+# NVIDIA:
+
 # MeshGraphNet for transient vortex shedding
 
 This example is a re-implementation of the DeepMind's vortex shedding example
