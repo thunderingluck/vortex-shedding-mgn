@@ -1,0 +1,1 @@
+get whole dataset, make sure SAE inputs are correct size (1 x 128), train for multiple epoch, save chekpoints + run evals

@@ -20,6 +20,11 @@ hydra:
   run:
     dir: ./outputs/
 
+# conf/config.yaml
+defaults:
+  - sae
+  - _self_
+
 # data configs
 data_dir: ./raw_dataset/cylinder_flow/cylinder_flow
 

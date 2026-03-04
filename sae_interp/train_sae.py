@@ -3,6 +3,7 @@ import os
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
+from hydra.utils import to_absolute_path
 
 from .sae import SparseAutoencoder
 
@@ -29,8 +30,7 @@ def collate_concat(batch):
 
 def train_sae(cfg):
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    ds = EmbeddingNPZDataset(cfg.sae.out_dir)
-
+    ds = EmbeddingNPZDataset(to_absolute_path(cfg.sae.out_dir))
     # Paper uses batch size 128 (samples). Here snapshots have variable N,
     # so we batch snapshots and then concatenate nodes. :contentReference[oaicite:7]{index=7}
     loader = DataLoader(
