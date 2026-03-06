@@ -55,8 +55,11 @@ watch_model: False
 ckpt_path: "./checkpoints"
 
 # test & visualization configs
-num_test_samples: 10
+num_test_samples: 100
 num_test_time_steps: 300
 viz_vars: ["u", "v", "p"]
 frame_skip: 10
 frame_interval: 1
+
+# 
+run_extraction: false

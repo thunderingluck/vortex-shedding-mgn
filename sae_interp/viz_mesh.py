@@ -395,7 +395,7 @@ if __name__ == "__main__":
     # Minimal manual run (edit paths as needed):
     vc = VizConfig(
         embeddings_dir=os.path.join(REPO_ROOT, "sae_embeddings"),
-        sae_ckpt_path=os.path.join(REPO_ROOT, "sae_ckpts", "sae_best.pt"),
+        sae_ckpt_path=os.path.join(REPO_ROOT, "outputs/sae_ckpts", "sae_best.pt"),
         out_dir=os.path.join(REPO_ROOT, "sae_viz"),
         metric="variance",
         topk=50,
