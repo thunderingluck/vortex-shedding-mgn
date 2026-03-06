@@ -20,14 +20,47 @@ import torch
 import matplotlib.pyplot as plt
 import matplotlib.tri as mtri
 
-from .sae import SparseAutoencoder
-from .saliency import (
-    select_topk_global,
-    select_topk_time_local,
-)
+if __package__ in (None, ""):
+    # Supports `python viz_mesh.py` and `python -m viz_mesh` from within sae_interp/.
+    from sae import SparseAutoencoder
+    from saliency import (
+        select_topk_global,
+        select_topk_time_local,
+    )
+else:
+    # Supports package execution, e.g. `python -m sae_interp.viz_mesh`.
+    from .sae import SparseAutoencoder
+    from .saliency import (
+        select_topk_global,
+        select_topk_time_local,
+    )
 
 Metric = Literal["variance", "mean_abs", "entropy"]
 TopKMode = Literal["global", "time_local"]
+
+
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.abspath(os.path.join(THIS_DIR, ".."))
+
+
+def _resolve_existing_path(path: str) -> str:
+    """
+    Resolve a path robustly for both repo-root and sae_interp working directories.
+
+    Lookup order:
+      1) as provided (absolute or relative to CWD)
+      2) relative to this file's directory (sae_interp/)
+      3) relative to repo root
+    """
+    candidates = [
+        path,
+        os.path.join(THIS_DIR, path),
+        os.path.join(REPO_ROOT, path),
+    ]
+    for c in candidates:
+        if os.path.exists(c):
+            return os.path.abspath(c)
+    return os.path.abspath(path)
 
 
 def _ensure_dir(path: str) -> None:
@@ -35,9 +68,13 @@ def _ensure_dir(path: str) -> None:
 
 
 def _load_npz_files(npz_dir: str) -> List[str]:
-    files = sorted(glob.glob(os.path.join(npz_dir, "emb_*.npz")))
+    npz_dir_resolved = _resolve_existing_path(npz_dir)
+    files = sorted(glob.glob(os.path.join(npz_dir_resolved, "emb_*.npz")))
     if not files:
-        raise FileNotFoundError(f"No emb_*.npz files found in: {npz_dir}")
+        raise FileNotFoundError(
+            "No emb_*.npz files found. "
+            f"Configured embeddings_dir={npz_dir!r}, resolved={npz_dir_resolved!r}."
+        )
     return files
 
 
@@ -138,7 +175,8 @@ def _top_eta_indices(a: np.ndarray, eta: int) -> np.ndarray:
 
 
 def _load_sae_from_ckpt(ckpt_path: str, device: str = "cpu") -> SparseAutoencoder:
-    ckpt = torch.load(ckpt_path, map_location=device)
+    ckpt_path_resolved = _resolve_existing_path(ckpt_path)
+    ckpt = torch.load(ckpt_path_resolved, map_location=device)
     sae_cfg = ckpt.get("cfg", {})
     d_in = int(sae_cfg.get("d_in", 128))
     expansion = int(sae_cfg.get("expansion", 8))
@@ -356,9 +394,9 @@ def _try_make_video(out_dir: str, fps: int = 10) -> None:
 if __name__ == "__main__":
     # Minimal manual run (edit paths as needed):
     vc = VizConfig(
-        embeddings_dir="./sae_embeddings",
-        sae_ckpt_path="./sae_ckpts/sae_best.pt",
-        out_dir="./sae_viz",
+        embeddings_dir=os.path.join(REPO_ROOT, "sae_embeddings"),
+        sae_ckpt_path=os.path.join(REPO_ROOT, "sae_ckpts", "sae_best.pt"),
+        out_dir=os.path.join(REPO_ROOT, "sae_viz"),
         metric="variance",
         topk=50,
         eta=100,
