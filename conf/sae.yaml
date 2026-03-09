@@ -1,13 +1,19 @@
+# sae:
+#   # embedding extraction
+#   split: test
 sae:
-  # embedding extraction
-  split: test
-  num_samples: ${num_test_samples}
-  num_steps: ${num_test_time_steps}
+  splits: [train, val, test]
+  out_root: sae_embeddings
+  num_samples: 10
+  num_steps: 299
+
+  # num_samples: ${num_test_samples}
+  # num_steps: ${num_test_time_steps}
   out_dir: ./sae_embeddings
 
   # SAE model
   d_in: 128
-  expansion: 8     # κ=8 :contentReference[oaicite:11]{index=11}
+  expansion: 8     # κ=8 :cont  entReference[oaicite:11]{index=11}
   lam: 3.0e-4      # λ=3e-4 :contentReference[oaicite:12]{index=12}
 
   train:
