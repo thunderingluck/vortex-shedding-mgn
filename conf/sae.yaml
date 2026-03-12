@@ -9,7 +9,7 @@ sae:
 
   # num_samples: ${num_test_samples}
   # num_steps: ${num_test_time_steps}
-  out_dir: ./sae_embeddings
+  out_dir: sae_embeddings/train   # split used for SAE training and eval
 
   # SAE model
   d_in: 128

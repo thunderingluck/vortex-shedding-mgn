@@ -1,4 +1,5 @@
 import glob
+import itertools
 import os
 import numpy as np
 import torch
@@ -48,7 +49,7 @@ def train_sae(cfg):
     best_recon = float("inf")
     os.makedirs(cfg.sae.train.ckpt_dir, exist_ok=True)
 
-    for step, h in enumerate(loader, start=1):
+    for step, h in enumerate(itertools.cycle(loader), start=1):
         h = h.to(device)
 
         loss, recon, spars = sae.loss(h, lam=cfg.sae.lam)
