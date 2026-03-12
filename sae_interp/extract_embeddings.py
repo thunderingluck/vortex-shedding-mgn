@@ -55,6 +55,7 @@ def _extract_split(cfg, model, device, split: str, out_root: str):
     )
     loader = PyGDataLoader(dataset, batch_size=1, shuffle=False, drop_last=False)
 
+    num_steps = cfg.sae.num_steps - 1  # steps per trajectory after drop_last
     meta = []
 
     for idx, batch in enumerate(loader):
@@ -63,6 +64,9 @@ def _extract_split(cfg, model, device, split: str, out_root: str):
 
         hL = get_hL_embeddings(model, graph.x, graph.edge_attr, graph)
         hL = hL.detach().cpu().numpy().astype(np.float32)
+
+        trajectory_id = idx // num_steps
+        step_id = idx % num_steps
 
         # mesh positions, if present
         mesh_pos = None
@@ -93,6 +97,8 @@ def _extract_split(cfg, model, device, split: str, out_root: str):
             rollout_mask=mask_np,
             split=split,
             dataset_idx=idx,
+            trajectory_id=trajectory_id,
+            step_id=step_id,
             num_nodes=hL.shape[0],
         )
 
@@ -100,6 +106,8 @@ def _extract_split(cfg, model, device, split: str, out_root: str):
             "dataset_idx": idx,
             "file": f"emb_{idx:06d}.npz",
             "split": split,
+            "trajectory_id": trajectory_id,
+            "step_id": step_id,
             "num_nodes": int(hL.shape[0]),
         })
 
@@ -132,3 +140,16 @@ def extract_and_save(cfg):
         _extract_split(cfg, model, device, split, out_root)
 
     print(f"[SAE] Finished extracting splits={splits} into {out_root}")
+
+
+if __name__ == "__main__":
+    import hydra
+    from omegaconf import DictConfig
+
+    _CONF = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "conf"))
+
+    @hydra.main(version_base="1.3", config_path=_CONF, config_name="config")
+    def main(cfg: DictConfig):
+        extract_and_save(cfg)
+
+    main()
