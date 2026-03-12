@@ -1,6 +1,10 @@
 """
 train_sae_rand.py
 
+For testing training on small number of trajectories, 
+run: 
+python train_sae_rand.py --max_trajs 10 --max_epochs 2 --val_every 200 --patience 2
+
 Train a SparseAutoencoder on node-level embeddings from ../sae_embeddings/raw/.
 
 Key design choices:
@@ -10,13 +14,18 @@ Key design choices:
 - Validation every `val_every` steps: MSE, L0, dead-feature fraction
 - Early stopping with configurable patience (in eval cycles)
 - Best checkpoint saved whenever val loss improves
+- Metrics logged to CSV; training curves saved as PNG on exit
 """
 
 import argparse
+import csv
 import os
 import glob
 import re
 
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -52,19 +61,23 @@ def parse_args():
 
 
 def traj_id_from_path(path: str) -> str:
-    """Extract trajectory identifier (e.g. '0000') from filename."""
-    m = re.search(r"traj_(\d+)_step_", os.path.basename(path))
+    """Extract trajectory identifier from filename.
+    Handles both traj_0000_step_0000.npz and consolidated traj_0000.npy."""
+    m = re.search(r"traj_(\d+)", os.path.basename(path))
     if m is None:
         raise ValueError(f"Cannot parse traj id from {path}")
     return m.group(1)
 
 
 def load_split(files: list[str], desc: str) -> torch.Tensor:
-    """Load all files, concatenate node embeddings -> (total_nodes, d_in) float32."""
+    """Load all files, concatenate node embeddings -> (total_nodes, d_in) float32.
+    Accepts both .npy (consolidated, already float32) and .npz (raw per-step)."""
     arrays = []
     for f in files:
-        d = np.load(f)
-        arrays.append(d["hL"].astype(np.float32))  # (N, 128)
+        if f.endswith(".npy"):
+            arrays.append(np.load(f))           # (N*T, 128) already float32
+        else:
+            arrays.append(np.load(f)["hL"].astype(np.float32))  # (N, 128)
     data = np.concatenate(arrays, axis=0)
     print(f"  {desc}: {len(files)} files, {data.shape[0]:,} nodes")
     return torch.from_numpy(data)
@@ -110,6 +123,52 @@ def validate(sae, val_data: torch.Tensor, lam: float, device: str,
 
 
 # ---------------------------------------------------------------------------
+# plotting
+# ---------------------------------------------------------------------------
+
+def save_plots(log: list[dict], ckpt_dir: str):
+    if not log:
+        return
+    steps       = [r["step"]        for r in log]
+    train_loss  = [r["train_loss"]  for r in log]
+    train_recon = [r["train_recon"] for r in log]
+    val_loss    = [r["val_loss"]    for r in log]
+    val_mse     = [r["val_mse"]     for r in log]
+    val_l0      = [r["val_l0"]      for r in log]
+    dead_frac   = [r["dead_frac"]   for r in log]
+
+    fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+    fig.suptitle("SAE Training Curves")
+
+    ax = axes[0, 0]
+    ax.semilogy(steps, train_loss, label="train_loss (EMA)")
+    ax.semilogy(steps, val_loss,   label="val_loss")
+    ax.set_xlabel("step"); ax.set_ylabel("loss (log)"); ax.set_title("Loss")
+    ax.legend()
+
+    ax = axes[0, 1]
+    ax.semilogy(steps, train_recon, label="train_recon (EMA)")
+    ax.semilogy(steps, val_mse,     label="val_mse")
+    ax.set_xlabel("step"); ax.set_ylabel("MSE (log)"); ax.set_title("Reconstruction MSE")
+    ax.legend()
+
+    ax = axes[1, 0]
+    ax.plot(steps, val_l0)
+    ax.set_xlabel("step"); ax.set_ylabel("L0 (features/node)"); ax.set_title("Val L0 (sparsity)")
+
+    ax = axes[1, 1]
+    ax.plot(steps, dead_frac)
+    ax.set_xlabel("step"); ax.set_ylabel("fraction"); ax.set_title("Dead features")
+    ax.set_ylim(0, 1)
+
+    plt.tight_layout()
+    path = os.path.join(ckpt_dir, "training_curves.png")
+    plt.savefig(path, dpi=150)
+    plt.close(fig)
+    print(f"  -> saved training curves to {path}")
+
+
+# ---------------------------------------------------------------------------
 # main training loop
 # ---------------------------------------------------------------------------
 
@@ -123,7 +182,10 @@ def main():
     # ------------------------------------------------------------------
     # 1. Discover files and split by trajectory
     # ------------------------------------------------------------------
-    all_files = sorted(glob.glob(os.path.join(args.emb_dir, "traj_*.npz")))
+    all_files = sorted(
+        glob.glob(os.path.join(args.emb_dir, "traj_*.npy")) or
+        glob.glob(os.path.join(args.emb_dir, "traj_*.npz"))
+    )
     if not all_files:
         raise FileNotFoundError(f"No traj_*.npz files in {args.emb_dir}")
 
@@ -162,7 +224,18 @@ def main():
     os.makedirs(args.ckpt_dir, exist_ok=True)
 
     # ------------------------------------------------------------------
-    # 4. Training loop
+    # 4. Metric logging setup
+    # ------------------------------------------------------------------
+    csv_path = os.path.join(args.ckpt_dir, "metrics.csv")
+    csv_fields = ["step", "epoch", "train_loss", "train_recon", "train_L1",
+                  "val_loss", "val_mse", "val_l0", "dead_frac"]
+    csv_file = open(csv_path, "w", newline="")
+    csv_writer = csv.DictWriter(csv_file, fieldnames=csv_fields)
+    csv_writer.writeheader()
+    metric_log = []  # in-memory copy for plotting at the end
+
+    # ------------------------------------------------------------------
+    # 5. Training loop
     # ------------------------------------------------------------------
     global_step = 0
     best_val_loss = float("inf")
@@ -173,69 +246,85 @@ def main():
     print(f"\nStarting training: batch_size={args.batch_size}, "
           f"val_every={args.val_every} steps, patience={args.patience} evals\n")
 
-    for epoch in range(1, args.max_epochs + 1):
-        # Fresh shuffle of all training nodes each epoch
-        perm = torch.from_numpy(rng.permutation(n_train))
+    try:
+        for epoch in range(1, args.max_epochs + 1):
+            # Fresh shuffle of all training nodes each epoch
+            perm = torch.from_numpy(rng.permutation(n_train))
 
-        for start in range(0, n_train, args.batch_size):
-            idx = perm[start:start + args.batch_size]
-            if len(idx) == 0:
-                continue
-            h = train_data[idx].to(device)
+            for start in range(0, n_train, args.batch_size):
+                idx = perm[start:start + args.batch_size]
+                if len(idx) == 0:
+                    continue
+                h = train_data[idx].to(device)
 
-            loss, recon, spars = sae.loss(h, lam=args.lam)
-            opt.zero_grad(set_to_none=True)
-            loss.backward()
-            torch.nn.utils.clip_grad_norm_(sae.parameters(), max_norm=1.0)
-            opt.step()
-            sae.renorm_decoder_rows_()
+                loss, recon, spars = sae.loss(h, lam=args.lam)
+                opt.zero_grad(set_to_none=True)
+                loss.backward()
+                torch.nn.utils.clip_grad_norm_(sae.parameters(), max_norm=1.0)
+                opt.step()
+                sae.renorm_decoder_rows_()
 
-            global_step += 1
-            ema_loss  = ema_alpha * ema_loss  + (1 - ema_alpha) * loss.item()
-            ema_recon = ema_alpha * ema_recon + (1 - ema_alpha) * recon.item()
-            ema_spars = ema_alpha * ema_spars + (1 - ema_alpha) * spars.item()
+                global_step += 1
+                ema_loss  = ema_alpha * ema_loss  + (1 - ema_alpha) * loss.item()
+                ema_recon = ema_alpha * ema_recon + (1 - ema_alpha) * recon.item()
+                ema_spars = ema_alpha * ema_spars + (1 - ema_alpha) * spars.item()
 
-            # ----------------------------------------------------------
-            # Validation
-            # ----------------------------------------------------------
-            if global_step % args.val_every == 0:
-                val_loss, val_mse, val_l0, dead_frac = validate(
-                    sae, val_data, args.lam, device)
+                # ----------------------------------------------------------
+                # Validation
+                # ----------------------------------------------------------
+                if global_step % args.val_every == 0:
+                    val_loss, val_mse, val_l0, dead_frac = validate(
+                        sae, val_data, args.lam, device)
 
-                print(
-                    f"[step {global_step:7d} | ep {epoch}] "
-                    f"train_loss={ema_loss:.4e}  train_recon={ema_recon:.4e}  train_L1={ema_spars:.4e}  "
-                    f"val_loss={val_loss:.4e}  val_mse={val_mse:.4e}  "
-                    f"val_L0={val_l0:.1f}  dead={dead_frac:.3f}"
-                )
+                    print(
+                        f"[step {global_step:7d} | ep {epoch}] "
+                        f"train_loss={ema_loss:.4e}  train_recon={ema_recon:.4e}  train_L1={ema_spars:.4e}  "
+                        f"val_loss={val_loss:.4e}  val_mse={val_mse:.4e}  "
+                        f"val_L0={val_l0:.1f}  dead={dead_frac:.3f}"
+                    )
 
-                if val_loss < best_val_loss:
-                    best_val_loss = val_loss
-                    patience_count = 0
-                    ckpt_path = os.path.join(args.ckpt_dir, "sae_best.pt")
-                    torch.save({
-                        "sae_state": sae.state_dict(),
-                        "d_in": args.d_in,
-                        "expansion": args.expansion,
-                        "lam": args.lam,
-                        "step": global_step,
-                        "epoch": epoch,
-                        "val_loss": best_val_loss,
-                        "val_mse": val_mse,
-                        "val_l0": val_l0,
+                    row = {
+                        "step": global_step, "epoch": epoch,
+                        "train_loss": ema_loss, "train_recon": ema_recon,
+                        "train_L1": ema_spars, "val_loss": val_loss,
+                        "val_mse": val_mse, "val_l0": val_l0,
                         "dead_frac": dead_frac,
-                    }, ckpt_path)
-                    print(f"  -> saved best checkpoint (val_loss={best_val_loss:.4e})")
-                else:
-                    patience_count += 1
-                    print(f"  -> no improvement ({patience_count}/{args.patience})")
-                    if patience_count >= args.patience:
-                        print("\nEarly stopping triggered.")
-                        return
+                    }
+                    csv_writer.writerow(row)
+                    csv_file.flush()
+                    metric_log.append(row)
 
-        print(f"Epoch {epoch} done  (step={global_step})")
+                    if val_loss < best_val_loss:
+                        best_val_loss = val_loss
+                        patience_count = 0
+                        ckpt_path = os.path.join(args.ckpt_dir, "sae_best.pt")
+                        torch.save({
+                            "sae_state": sae.state_dict(),
+                            "d_in": args.d_in,
+                            "expansion": args.expansion,
+                            "lam": args.lam,
+                            "step": global_step,
+                            "epoch": epoch,
+                            "val_loss": best_val_loss,
+                            "val_mse": val_mse,
+                            "val_l0": val_l0,
+                            "dead_frac": dead_frac,
+                        }, ckpt_path)
+                        print(f"  -> saved best checkpoint (val_loss={best_val_loss:.4e})")
+                    else:
+                        patience_count += 1
+                        print(f"  -> no improvement ({patience_count}/{args.patience})")
+                        if patience_count >= args.patience:
+                            print("\nEarly stopping triggered.")
+                            return
 
-    print(f"\nTraining complete. Best val_loss={best_val_loss:.4e}")
+            print(f"Epoch {epoch} done  (step={global_step})")
+
+        print(f"\nTraining complete. Best val_loss={best_val_loss:.4e}")
+
+    finally:
+        csv_file.close()
+        save_plots(metric_log, args.ckpt_dir)
 
 
 if __name__ == "__main__":
