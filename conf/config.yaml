@@ -63,3 +63,4 @@ frame_interval: 1
 
 # 
 run_extraction: true
+run_split: true

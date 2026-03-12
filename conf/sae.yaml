@@ -2,14 +2,15 @@
 #   # embedding extraction
 #   split: test
 sae:
-  splits: [train, val, test]
+  splits: [test]            # extract from MGN test set only
   out_root: sae_embeddings
-  num_samples: 10
-  num_steps: 299
+  num_samples: 100          # all 100 test trajectories
+  num_steps: 600            # full trajectory length
 
-  # num_samples: ${num_test_samples}
-  # num_steps: ${num_test_time_steps}
-  out_dir: sae_embeddings/train   # split used for SAE training and eval
+  raw_dir: sae_embeddings/raw    # output of extract_embeddings (pre-split)
+  out_dir: sae_embeddings/train  # SAE trains on this partition (set by split_embeddings)
+  val_fraction: 0.2              # 80/20 trajectory-level split
+  split_seed: 42                 # reproducible shuffle
 
   # SAE model
   d_in: 128

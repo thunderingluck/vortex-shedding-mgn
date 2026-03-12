@@ -44,7 +44,7 @@ def main():
     if not os.path.isdir(emb_dir):
         raise FileNotFoundError(f"Directory not found: {emb_dir}")
 
-    files = sorted(f for f in os.listdir(emb_dir) if f.endswith(".npz"))
+    files = sorted(f for f in os.listdir(emb_dir) if f.startswith("traj_") and f.endswith(".npz"))
     if not files:
         print(f"No .npz files found in {emb_dir}")
         return
