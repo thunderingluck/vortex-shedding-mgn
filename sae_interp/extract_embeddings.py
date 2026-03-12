@@ -1,8 +1,9 @@
+import json
 import os
 import numpy as np
 import torch
-from torch_geometric.loader import DataLoader as PyGDataLoader
 from hydra.utils import to_absolute_path
+from tfrecord.torch.dataset import TFRecordDataset
 
 from physicsnemo.models.meshgraphnet import MeshGraphNet
 from physicsnemo.datapipes.gnn.vortex_shedding_dataset import VortexSheddingDataset
@@ -20,106 +21,124 @@ def get_hL_embeddings(model: MeshGraphNet, node_x, edge_attr, graph):
     return hL
 
 
-def _unpack_batch(batch, split: str):
-    """
-    Handle possible dataset return-format differences across splits.
-    Expected:
-      - non-train: (graph, cells, rollout_mask)
-      - train: maybe just graph, or maybe also tuple-like
-    """
-    if isinstance(batch, (list, tuple)):
-        if len(batch) == 3:
-            graph, cells, rollout_mask = batch
-        elif len(batch) == 1:
-            graph = batch[0]
-            cells, rollout_mask = None, None
-        else:
-            raise ValueError(f"Unexpected batch format for split={split}: len={len(batch)}")
-    else:
-        graph = batch
-        cells, rollout_mask = None, None
+def _load_stats(stats_dir: str) -> tuple[dict, dict]:
+    """Load pre-computed edge and node normalisation stats from JSON."""
+    def _load(path):
+        with open(path) as f:
+            raw = json.load(f)
+        return {k: torch.tensor(v) for k, v in raw.items()}
 
-    return graph, cells, rollout_mask
+    edge_stats = _load(os.path.join(stats_dir, "edge_stats.json"))
+    node_stats = _load(os.path.join(stats_dir, "node_stats.json"))
+    return edge_stats, node_stats
 
 
-def _extract_split(cfg, model, device, split: str, out_root: str):
-    out_dir = os.path.join(out_root, split)
+def _extract_split(cfg, model, device, split: str, out_root: str, stats_dir: str):
+    """Stream one trajectory at a time to avoid loading the full dataset into RAM."""
+    out_dir = os.path.join(out_root, "raw")
     os.makedirs(out_dir, exist_ok=True)
 
-    dataset = VortexSheddingDataset(
-        name=f"vortex_shedding_sae_{split}",
-        data_dir=to_absolute_path(cfg.data_dir),
-        split=split,
-        num_samples=cfg.sae.num_samples,
-        num_steps=cfg.sae.num_steps,
+    data_dir = to_absolute_path(cfg.data_dir)
+    num_steps = cfg.sae.num_steps   # timesteps to use per trajectory
+    num_samples = cfg.sae.num_samples
+
+    edge_stats, node_stats = _load_stats(stats_dir)
+
+    # Load tfrecord meta and build decoder
+    with open(os.path.join(data_dir, "meta.json")) as f:
+        meta = json.load(f)
+    description = {k: "byte" for k in meta["field_names"]}
+    tfrecord_path = os.path.join(data_dir, f"{split}.tfrecord")
+    index_path = tfrecord_path.replace(".tfrecord", ".tfindex")
+    if not os.path.exists(index_path):
+        index_path = None
+
+    tfr_dataset = TFRecordDataset(
+        tfrecord_path,
+        index_path,
+        description,
+        transform=lambda rec: VortexSheddingDataset._decode_record(rec, meta),
     )
-    loader = PyGDataLoader(dataset, batch_size=1, shuffle=False, drop_last=False)
 
-    num_steps = cfg.sae.num_steps - 1  # steps per trajectory after drop_last
-    meta = []
+    snapshot_meta = []
+    dataset_idx = 0
 
-    for idx, batch in enumerate(loader):
-        graph, cells, rollout_mask = _unpack_batch(batch, split)
-        graph = graph.to(device)
+    for traj_id, data_np in enumerate(tfr_dataset):
+        if traj_id >= num_samples:
+            break
 
-        hL = get_hL_embeddings(model, graph.x, graph.edge_attr, graph)
-        hL = hL.detach().cpu().numpy().astype(np.float32)
+        # Slice to requested num_steps
+        data_np = {k: v[:num_steps] for k, v in data_np.items()}
 
-        trajectory_id = idx // num_steps
-        step_id = idx % num_steps
-
-        # mesh positions, if present
-        mesh_pos = None
-        if "mesh_pos" in graph:
-            mesh_pos = graph["mesh_pos"].detach().cpu().numpy().astype(np.float32)
-
-        # cells / rollout mask may not exist for train split
-        cells_np = None
-        if cells is not None:
-            if hasattr(cells, "numpy"):
-                cells_np = np.squeeze(cells.numpy())
-            else:
-                cells_np = np.asarray(cells)
-
-        mask_np = None
-        if rollout_mask is not None:
-            if hasattr(rollout_mask, "detach"):
-                mask_np = rollout_mask.detach().cpu().numpy()
-            else:
-                mask_np = np.asarray(rollout_mask)
-
-        fname = f"traj_{trajectory_id:04d}_step_{step_id:04d}.npz"
-        save_path = os.path.join(out_dir, fname)
-        np.savez_compressed(
-            save_path,
-            hL=hL,
-            mesh_pos=mesh_pos,
-            cells=cells_np,
-            rollout_mask=mask_np,
-            split=split,
-            dataset_idx=idx,
-            trajectory_id=trajectory_id,
-            step_id=step_id,
-            num_nodes=hL.shape[0],
+        # Build graph (static per trajectory)
+        src, dst = VortexSheddingDataset.cell_to_adj(data_np["cells"][0])
+        graph = VortexSheddingDataset.create_graph(src, dst, dtype=torch.int32)
+        graph = VortexSheddingDataset.add_edge_features(graph, data_np["mesh_pos"][0])
+        graph.edge_attr = VortexSheddingDataset.normalize_edge(
+            graph, edge_stats["edge_mean"], edge_stats["edge_std"]
         )
 
-        meta.append({
-            "dataset_idx": idx,
-            "file": fname,
-            "split": split,
-            "trajectory_id": trajectory_id,
-            "step_id": step_id,
-            "num_nodes": int(hL.shape[0]),
-        })
+        node_type = torch.tensor(data_np["node_type"][0], dtype=torch.uint8)
+        node_type_oh = VortexSheddingDataset._one_hot_encode(node_type).float()
 
-    np.save(os.path.join(out_dir, "index.npy"), np.array(meta, dtype=object))
-    print(f"[SAE] Saved {len(meta)} snapshots for split='{split}' to {out_dir}")
+        # Per-trajectory static arrays (saved once per snapshot for self-contained files)
+        mesh_pos_np = data_np["mesh_pos"][0].astype(np.float32)
+        cells_np = data_np["cells"][0]
+        rollout_mask_np = VortexSheddingDataset._get_rollout_mask(node_type).numpy()
+
+        velocity = torch.tensor(data_np["velocity"], dtype=torch.float32)  # (T, N, 2)
+        vel_norm = VortexSheddingDataset.normalize_node(
+            velocity, node_stats["velocity_mean"], node_stats["velocity_std"]
+        )
+
+        graph = graph.to(device)
+        node_type_oh = node_type_oh.to(device)
+
+        # Iterate over timesteps (drop last, same as dataset)
+        for step_id in range(num_steps - 1):
+            node_x = torch.cat([vel_norm[step_id].to(device), node_type_oh], dim=-1)
+            graph.x = node_x
+
+            hL = get_hL_embeddings(model, graph.x, graph.edge_attr, graph)
+            hL = hL.detach().cpu().numpy().astype(np.float32)
+
+            fname = f"traj_{traj_id:04d}_step_{step_id:04d}.npz"
+            np.savez_compressed(
+                os.path.join(out_dir, fname),
+                hL=hL,
+                mesh_pos=mesh_pos_np,
+                cells=cells_np,
+                rollout_mask=rollout_mask_np,
+                split=split,
+                dataset_idx=dataset_idx,
+                trajectory_id=traj_id,
+                step_id=step_id,
+                num_nodes=hL.shape[0],
+            )
+
+            snapshot_meta.append({
+                "dataset_idx": dataset_idx,
+                "file": fname,
+                "split": split,
+                "trajectory_id": traj_id,
+                "step_id": step_id,
+                "num_nodes": int(hL.shape[0]),
+            })
+            dataset_idx += 1
+
+        print(f"[SAE] traj {traj_id:04d} done ({num_steps - 1} snapshots)")
+
+    np.save(os.path.join(out_dir, "index.npy"), np.array(snapshot_meta, dtype=object))
+    print(f"[SAE] Saved {len(snapshot_meta)} snapshots for split='{split}' to {out_dir}")
 
 
 def extract_and_save(cfg):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     out_root = to_absolute_path(cfg.sae.out_root)
     os.makedirs(out_root, exist_ok=True)
+
+    # Stats JSONs are written to the Hydra output dir (cwd after chdir)
+    stats_dir = os.getcwd()
 
     model = MeshGraphNet(
         cfg.num_input_features,
@@ -138,7 +157,7 @@ def extract_and_save(cfg):
         splits = [splits]
 
     for split in splits:
-        _extract_split(cfg, model, device, split, out_root)
+        _extract_split(cfg, model, device, split, out_root, stats_dir)
 
     print(f"[SAE] Finished extracting splits={splits} into {out_root}")
 

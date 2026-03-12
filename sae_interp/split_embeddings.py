@@ -4,9 +4,9 @@ Split extracted test embeddings into SAE train/val partitions.
 Splitting is done at the trajectory level (not snapshot level) to prevent
 data leakage. All snapshots belonging to a trajectory go to the same partition.
 
-Reads from:  <out_root>/test/emb_*.npz
-Writes to:   <out_root>/train/emb_*.npz  (1 - val_fraction of trajectories)
-             <out_root>/val/emb_*.npz    (val_fraction of trajectories)
+Reads from:  <out_root>/raw/traj_*.npz
+Writes to:   <out_root>/train/traj_*.npz  (1 - val_fraction of trajectories)
+             <out_root>/val/traj_*.npz    (val_fraction of trajectories)
 """
 import os
 import shutil
@@ -16,7 +16,7 @@ from hydra.utils import to_absolute_path
 
 def split_embeddings(cfg):
     out_root = to_absolute_path(cfg.sae.out_root)
-    src_dir = os.path.join(out_root, "test")
+    src_dir = os.path.join(out_root, "raw")
     train_dir = os.path.join(out_root, "train")
     val_dir = os.path.join(out_root, "val")
 
