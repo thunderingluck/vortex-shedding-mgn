@@ -34,11 +34,11 @@ def parse_args():
     p.add_argument("--ckpt_dir", default="./checkpoints_rand")
     p.add_argument("--d_in", type=int, default=128)
     p.add_argument("--expansion", type=int, default=8)
-    p.add_argument("--lam", type=float, default=1e-3,
-                   help="L1 sparsity coefficient")
+    p.add_argument("--lam", type=float, default=3e-4,
+                   help="L1 sparsity coefficient (paper: 3e-4)")
     p.add_argument("--lr", type=float, default=1e-4)
-    p.add_argument("--batch_size", type=int, default=4096,
-                   help="Node-level mini-batch size")
+    p.add_argument("--batch_size", type=int, default=128,
+                   help="Node-level mini-batch size (paper: 128)")
     p.add_argument("--max_epochs", type=int, default=50)
     p.add_argument("--val_every", type=int, default=2000,
                    help="Validate every this many optimizer steps")
@@ -46,6 +46,8 @@ def parse_args():
                    help="Early-stop after this many eval cycles without improvement")
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--val_frac", type=float, default=0.2)
+    p.add_argument("--max_trajs", type=int, default=None,
+                   help="Cap the number of trajectories loaded (useful for smoke tests)")
     return p.parse_args()
 
 
@@ -126,6 +128,9 @@ def main():
         raise FileNotFoundError(f"No traj_*.npz files in {args.emb_dir}")
 
     traj_ids = sorted(set(traj_id_from_path(f) for f in all_files))
+    if args.max_trajs is not None:
+        traj_ids = traj_ids[:args.max_trajs]
+        all_files = [f for f in all_files if traj_id_from_path(f) in set(traj_ids)]
     n_traj = len(traj_ids)
     n_val_traj = max(1, round(n_traj * args.val_frac))
     n_train_traj = n_traj - n_val_traj
@@ -162,6 +167,8 @@ def main():
     global_step = 0
     best_val_loss = float("inf")
     patience_count = 0
+    ema_loss = ema_recon = ema_spars = 0.0
+    ema_alpha = 0.98
 
     print(f"\nStarting training: batch_size={args.batch_size}, "
           f"val_every={args.val_every} steps, patience={args.patience} evals\n")
@@ -179,10 +186,14 @@ def main():
             loss, recon, spars = sae.loss(h, lam=args.lam)
             opt.zero_grad(set_to_none=True)
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(sae.parameters(), max_norm=1.0)
             opt.step()
             sae.renorm_decoder_rows_()
 
             global_step += 1
+            ema_loss  = ema_alpha * ema_loss  + (1 - ema_alpha) * loss.item()
+            ema_recon = ema_alpha * ema_recon + (1 - ema_alpha) * recon.item()
+            ema_spars = ema_alpha * ema_spars + (1 - ema_alpha) * spars.item()
 
             # ----------------------------------------------------------
             # Validation
@@ -193,7 +204,7 @@ def main():
 
                 print(
                     f"[step {global_step:7d} | ep {epoch}] "
-                    f"train_loss={loss.item():.4e}  "
+                    f"train_loss={ema_loss:.4e}  train_recon={ema_recon:.4e}  train_L1={ema_spars:.4e}  "
                     f"val_loss={val_loss:.4e}  val_mse={val_mse:.4e}  "
                     f"val_L0={val_l0:.1f}  dead={dead_frac:.3f}"
                 )

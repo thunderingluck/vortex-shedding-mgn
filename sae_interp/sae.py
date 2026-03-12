@@ -55,6 +55,8 @@ class SparseAutoencoder(nn.Module):
 
     def loss(self, h: torch.Tensor, lam: float):
         h_hat, z = self.forward(h)
-        recon = F.mse_loss(h_hat, h, reduction="mean")
-        spars = z.abs().mean()  # population sparsity proxy; paper uses L1 norm :contentReference[oaicite:4]{index=4}
+        # Paper Eq. (6): ||h_hat - h||_2^2 + λ||z||_1
+        # Both are per-sample norms (sum over dims), then averaged over the batch.
+        recon = (h_hat - h).pow(2).sum(-1).mean()
+        spars = z.abs().sum(-1).mean()
         return recon + lam * spars, recon.detach(), spars.detach()
