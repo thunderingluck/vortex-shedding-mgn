@@ -5,6 +5,9 @@ For testing training on small number of trajectories,
 run: 
 python train_sae_rand.py --max_trajs 10 --max_epochs 2 --val_every 200 --patience 2
 
+to train on consolidated embeddings add
+--emb_dir ../sae_embeddings/consolidated
+
 Train a SparseAutoencoder on node-level embeddings from ../sae_embeddings/raw/.
 
 Key design choices:
@@ -214,6 +217,13 @@ def main():
     print("Loading validation data...")
     val_data = load_split(val_files, "val")        # (N_val, 128)
 
+    # Normalize embeddings using training-set statistics (per feature)
+    emb_mean = train_data.mean(dim=0)               # (128,)
+    emb_std  = train_data.std(dim=0).clamp_min(1e-6)  # (128,)
+    train_data = (train_data - emb_mean) / emb_std
+    val_data   = (val_data   - emb_mean) / emb_std
+    print(f"  Normalized: mean={emb_mean.mean():.4f}  std={emb_std.mean():.4f} (per-dim, training set)")
+
     n_train = train_data.shape[0]
 
     # ------------------------------------------------------------------
@@ -309,6 +319,8 @@ def main():
                             "val_mse": val_mse,
                             "val_l0": val_l0,
                             "dead_frac": dead_frac,
+                            "emb_mean": emb_mean.cpu(),
+                            "emb_std": emb_std.cpu(),
                         }, ckpt_path)
                         print(f"  -> saved best checkpoint (val_loss={best_val_loss:.4e})")
                     else:
