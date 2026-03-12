@@ -1,5 +1,6 @@
 # ==== Data ====
 raw_dataset/
+sae_embeddings/
 *.h5
 *.npz
 *.vtk
