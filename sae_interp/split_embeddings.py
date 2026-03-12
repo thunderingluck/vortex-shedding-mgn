@@ -1,4 +1,5 @@
 """
+SHOULD BE RUN FROM PROJECT ROOT
 Split extracted test embeddings into SAE train/val partitions.
 
 Splitting is done at the trajectory level (not snapshot level) to prevent
