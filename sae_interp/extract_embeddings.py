@@ -88,7 +88,8 @@ def _extract_split(cfg, model, device, split: str, out_root: str):
             else:
                 mask_np = np.asarray(rollout_mask)
 
-        save_path = os.path.join(out_dir, f"emb_{idx:06d}.npz")
+        fname = f"traj_{trajectory_id:04d}_step_{step_id:04d}.npz"
+        save_path = os.path.join(out_dir, fname)
         np.savez_compressed(
             save_path,
             hL=hL,
@@ -104,7 +105,7 @@ def _extract_split(cfg, model, device, split: str, out_root: str):
 
         meta.append({
             "dataset_idx": idx,
-            "file": f"emb_{idx:06d}.npz",
+            "file": fname,
             "split": split,
             "trajectory_id": trajectory_id,
             "step_id": step_id,

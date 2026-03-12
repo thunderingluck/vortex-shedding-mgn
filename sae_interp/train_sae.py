@@ -11,7 +11,7 @@ from .sae import SparseAutoencoder
 
 class EmbeddingNPZDataset(Dataset):
     def __init__(self, npz_dir: str):
-        self.files = sorted(glob.glob(os.path.join(npz_dir, "emb_*.npz")))
+        self.files = sorted(glob.glob(os.path.join(npz_dir, "traj_*.npz")))
         if not self.files:
             raise FileNotFoundError(f"No emb_*.npz found in {npz_dir}")
 

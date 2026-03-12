@@ -20,7 +20,7 @@ def split_embeddings(cfg):
     train_dir = os.path.join(out_root, "train")
     val_dir = os.path.join(out_root, "val")
 
-    files = sorted(f for f in os.listdir(src_dir) if f.endswith(".npz"))
+    files = sorted(f for f in os.listdir(src_dir) if f.startswith("traj_") and f.endswith(".npz"))
     if not files:
         raise FileNotFoundError(f"No emb_*.npz files found in {src_dir}")
 
@@ -52,12 +52,12 @@ def split_embeddings(cfg):
         partition = "train" if tid in train_trajs else "val"
 
         for fname in sorted(traj_to_files[tid]):
+            # preserve traj/step ids in destination filename
+            dest_name = fname
             if partition == "train":
-                dest_name = f"emb_{train_counter:06d}.npz"
                 train_counter += 1
                 train_meta.append({"file": dest_name, "src": fname, "trajectory_id": tid})
             else:
-                dest_name = f"emb_{val_counter:06d}.npz"
                 val_counter += 1
                 val_meta.append({"file": dest_name, "src": fname, "trajectory_id": tid})
 
@@ -76,3 +76,16 @@ def split_embeddings(cfg):
     )
     print(f"  train → {train_dir}")
     print(f"  val   → {val_dir}")
+
+
+if __name__ == "__main__":
+    import hydra
+    from omegaconf import DictConfig
+
+    _CONF = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "conf"))
+
+    @hydra.main(version_base="1.3", config_path=_CONF, config_name="config")
+    def main(cfg: DictConfig):
+        split_embeddings(cfg)
+
+    main()
