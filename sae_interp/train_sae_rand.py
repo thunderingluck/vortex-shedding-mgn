@@ -306,6 +306,7 @@ def main():
                     csv_writer.writerow(row)
                     csv_file.flush()
                     metric_log.append(row)
+                    save_plots(metric_log, args.ckpt_dir)
 
                     if val_loss < best_val_loss:
                         best_val_loss = val_loss
@@ -333,6 +334,23 @@ def main():
                         if patience_count >= args.patience:
                             print("\nEarly stopping triggered.")
                             return
+
+                    # Always save a latest checkpoint so OOM kills don't lose all progress
+                    torch.save({
+                        "sae_state": sae.state_dict(),
+                        "d_in": args.d_in,
+                        "expansion": args.expansion,
+                        "lam": args.lam,
+                        "step": global_step,
+                        "epoch": epoch,
+                        "val_loss": val_loss,
+                        "val_mse": val_mse,
+                        "val_l0": val_l0,
+                        "dead_frac": dead_frac,
+                        "emb_mean": emb_mean.cpu(),
+                        "emb_std": emb_std.cpu(),
+                        "args": vars(args),
+                    }, os.path.join(args.ckpt_dir, "sae_latest.pt"))
 
             print(f"Epoch {epoch} done  (step={global_step})")
 

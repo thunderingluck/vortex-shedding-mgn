@@ -11,4 +11,4 @@ cd /home/evag/code/physicsnemo/examples/cfd/vortex_shedding_mgn/sae_interp
 source ~/miniconda3/bin/activate
 conda activate nemo311
 
-python train_sae_rand.py --emb_dir ../sae_embeddings/consolidated --lam 1e-2
+python train_sae_rand.py --emb_dir ../sae_embeddings/consolidated --lam 1e-2 --val_every 10000
