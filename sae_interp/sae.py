@@ -32,6 +32,10 @@ class SparseAutoencoder(nn.Module):
     def reset_parameters(self):
         nn.init.kaiming_uniform_(self.W_enc, a=5**0.5)
         nn.init.kaiming_uniform_(self.W_dec, a=5**0.5)
+        # Initialize b_enc negative so most features are off by default.
+        # Magnitude matches the expected pre-activation scale: sqrt(2/d_in).
+        with torch.no_grad():
+            self.b_enc.fill_(-((2 / self.d_in) ** 0.5))
 
     @torch.no_grad()
     def renorm_decoder_rows_(self, eps: float = 1e-8):
