@@ -7,6 +7,9 @@ python train_sae_rand.py --max_trajs 10 --max_epochs 2 --val_every 200 --patienc
 
 to train on consolidated embeddings add
 --emb_dir ../sae_embeddings/consolidated
+python train_sae_rand.py --max_trajs 10 --max_epochs 2 --val_every 200 --patience 2 --emb_dir ../sae_embeddings/consolidated
+
+
 
 Train a SparseAutoencoder on node-level embeddings from ../sae_embeddings/raw/.
 
@@ -321,6 +324,7 @@ def main():
                             "dead_frac": dead_frac,
                             "emb_mean": emb_mean.cpu(),
                             "emb_std": emb_std.cpu(),
+                            "args": vars(args),
                         }, ckpt_path)
                         print(f"  -> saved best checkpoint (val_loss={best_val_loss:.4e})")
                     else:
