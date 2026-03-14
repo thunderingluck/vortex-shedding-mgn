@@ -11,7 +11,7 @@ Usage:
     cd sae_interp/
     python make_paper_figures.py \
         --ckpt checkpoints_rand_3e-4/sae_best.pt \
-        --emb_dir ../sae_embeddings/val \
+        --emb_dir ../sae_embeddings/raw \
         --traj_id 0006 \
         --out_dir ./figures
 """
@@ -47,12 +47,16 @@ def load_trajectory(emb_dir: str, traj_id: str):
         )
     steps = []
     for fname in files:
+        # extract step number from filename, e.g. traj_0006_step_0042.npz -> 42
+        stem = fname[len(pattern):]            # e.g. "0042.npz"
+        step_num = int(stem.split(".")[0])
         d = np.load(os.path.join(emb_dir, fname))
         steps.append(
             dict(
                 hL=d["hL"].astype(np.float32),
                 mesh_pos=d["mesh_pos"],
                 cells=d["cells"],
+                step_num=step_num,
             )
         )
     return steps
@@ -127,7 +131,9 @@ def figure2(Z_list, steps_data, topk_dims, t_indices, eta_list, out_dir, metric)
             if row == 0:
                 ax.set_title(f"$\\eta$={eta}", fontsize=10)
             if col == 0:
-                ax.set_ylabel(f"t={t}", fontsize=9)
+                ax.text(-0.02, 0.5, f"step {steps_data[t]['step_num']}",
+                        transform=ax.transAxes, fontsize=9,
+                        va="center", ha="right", rotation=90)
 
     fig.suptitle(
         f"Fig 2 – Aggregated salient dims (metric={metric}, K={len(topk_dims)})",
@@ -180,7 +186,9 @@ def figure3(Z_list, steps_data, topk_dims, t_indices, eta, out_dir, n_dims=3):
             if row == 0:
                 ax.set_title(f"Dim {dim}", fontsize=10)
             if col == 0:
-                ax.set_ylabel(f"t={t}", fontsize=9)
+                ax.text(-0.02, 0.5, f"step {steps_data[t]['step_num']}",
+                        transform=ax.transAxes, fontsize=9,
+                        va="center", ha="right", rotation=90)
 
     fig.suptitle(
         f"Fig 3 – Individual latent dimensions (mean_abs Top-{n_dims}, $\\eta$={eta})",
@@ -240,7 +248,7 @@ def figure1_jaccard(Z_list, topk_dims_global, K, out_dir):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--ckpt", default="checkpoints_rand_3e-4/sae_best.pt")
-    p.add_argument("--emb_dir", default="../sae_embeddings/val")
+    p.add_argument("--emb_dir", default="../sae_embeddings/raw")
     p.add_argument("--traj_id", default="0006",
                    help="4-digit trajectory id, e.g. 0006")
     p.add_argument("--out_dir", default="./figures")

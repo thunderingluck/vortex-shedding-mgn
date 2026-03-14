@@ -24,6 +24,7 @@ Key design choices:
 """
 
 import argparse
+import collections
 import csv
 import os
 import glob
@@ -59,6 +60,10 @@ def parse_args():
                    help="Validate every this many optimizer steps")
     p.add_argument("--patience", type=int, default=8,
                    help="Early-stop after this many eval cycles without improvement")
+    p.add_argument("--l0_patience", type=int, default=None,
+                   help="Stop when L0 changes less than --l0_tol for this many consecutive evals")
+    p.add_argument("--l0_tol", type=float, default=0.5,
+                   help="L0 convergence tolerance in features/node (default: 0.5)")
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--val_frac", type=float, default=0.2)
     p.add_argument("--max_trajs", type=int, default=None,
@@ -253,6 +258,7 @@ def main():
     global_step = 0
     best_val_loss = float("inf")
     patience_count = 0
+    l0_window = collections.deque(maxlen=args.l0_patience) if args.l0_patience else None
     ema_loss = ema_recon = ema_spars = 0.0
     ema_alpha = 0.98
 
@@ -308,6 +314,16 @@ def main():
                     metric_log.append(row)
                     save_plots(metric_log, args.ckpt_dir)
 
+                    # L0 convergence check (slope of L0 over last l0_patience evals)
+                    l0_converged = False
+                    if l0_window is not None:
+                        l0_window.append(val_l0)
+                        if len(l0_window) == args.l0_patience:
+                            xs = np.arange(len(l0_window), dtype=np.float64)
+                            slope = float(np.polyfit(xs, list(l0_window), 1)[0])
+                            l0_converged = abs(slope) < args.l0_tol
+                            print(f"  -> L0 slope={slope:.4f}/eval (tol=±{args.l0_tol}, converged={l0_converged})")
+
                     if val_loss < best_val_loss:
                         best_val_loss = val_loss
                         patience_count = 0
@@ -330,10 +346,12 @@ def main():
                         print(f"  -> saved best checkpoint (val_loss={best_val_loss:.4e})")
                     else:
                         patience_count += 1
-                        print(f"  -> no improvement ({patience_count}/{args.patience})")
-                        if patience_count >= args.patience:
-                            print("\nEarly stopping triggered.")
-                            return
+                        print(f"  -> no loss improvement ({patience_count}/{args.patience})")
+                    loss_converged = patience_count >= args.patience
+
+                    if l0_converged and loss_converged:
+                        print("\nBoth L0 and loss converged. Stopping.")
+                        return
 
                     # Always save a latest checkpoint so OOM kills don't lose all progress
                     torch.save({
