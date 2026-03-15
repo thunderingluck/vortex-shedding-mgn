@@ -13,6 +13,12 @@ checkpoints/
 *.pt
 *.ckpt
 *.pth
+sae_interp/checkpoints_rand_3e-4/
+sae_interp/checkpoints_rand_3e-4_long/
+sae_interp/figures
+
+# ==== sbatch scripts ====
+*.sh
 
 # ==== Slurm logs ====
 *.out
