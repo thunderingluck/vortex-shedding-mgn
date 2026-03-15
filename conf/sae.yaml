@@ -7,24 +7,22 @@ sae:
   num_samples: 100          # all 100 test trajectories
   num_steps: 600            # full trajectory length
 
-  raw_dir: sae_embeddings/raw    # output of extract_embeddings (pre-split)
-  out_dir: sae_embeddings/train  # SAE trains on this partition (set by split_embeddings)
-  val_fraction: 0.2              # 80/20 trajectory-level split
-  split_seed: 42                 # reproducible shuffle
+  val_fraction: 0.2              # 80/20 trajectory-level split (done inside train_sae_rand)
+  seed: 42
 
   # SAE model
   d_in: 128
-  expansion: 8     # κ=8 :cont  entReference[oaicite:11]{index=11}
-  lam: 3.0e-4      # λ=3e-4 :contentReference[oaicite:12]{index=12}
+  expansion: 8     # κ=8
+  lam: 3.0e-4      # λ=3e-4
 
   train:
-    lr: 1.0e-3
-    snapshot_batch_size: 4   # 4 snapshots concatenated (variable N). Adjust for GPU mem.
-    num_workers: 2
-    max_steps: 20000
-    log_every: 50
-    ckpt_every: 200
-    ckpt_dir: ./sae_ckpts
+    lr: 1.0e-4
+    max_epochs: 50
+    val_every: 10000           # validate every N optimizer steps
+    patience: 8                # early-stop after N val cycles without improvement
+    l0_patience: 10            # stop when L0 converges for this many consecutive evals
+    l0_tol: 0.1                # L0 convergence tolerance in features/node
+    ckpt_dir: ./sae_interp/checkpoints
 
   analysis:
     metric: variance   # variance | mean_abs | entropy :contentReference[oaicite:13]{index=13}

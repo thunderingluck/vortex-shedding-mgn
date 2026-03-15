@@ -63,4 +63,6 @@ frame_interval: 1
 
 # 
 run_extraction: true
-run_split: true
+run_consolidation: true
+run_train: true
+run_figures: true

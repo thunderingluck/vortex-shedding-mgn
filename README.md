@@ -43,7 +43,15 @@ physicsnemo/examples/cfd/
 
 bash download_dataset.sh
 
-## Training
+## Training MGN
+
+sbatch run_sae_pipeline.py
+
+or locally:
+
+python run_sae_pipeline.py
+
+## Training SAE
 
 sbatch run_vortex_training.sbatch
 
