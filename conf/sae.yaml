@@ -17,6 +17,7 @@ sae:
 
   train:
     lr: 1.0e-4
+    batch_size: 128            # node-level mini-batch size
     max_epochs: 50
     val_every: 10000           # validate every N optimizer steps
     patience: 8                # early-stop after N val cycles without improvement

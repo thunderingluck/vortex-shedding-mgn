@@ -66,3 +66,4 @@ run_extraction: true
 run_consolidation: true
 run_train: true
 run_figures: true
+run_analysis: true

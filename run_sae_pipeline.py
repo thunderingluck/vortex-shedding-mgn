@@ -56,6 +56,7 @@ def main(cfg: DictConfig):
             "--expansion",    str(cfg.sae.expansion),
             "--lam",          str(cfg.sae.lam),
             "--lr",           str(cfg.sae.train.lr),
+            "--batch_size",   str(cfg.sae.train.batch_size),
             "--max_epochs",   str(cfg.sae.train.max_epochs),
             "--val_every",    str(cfg.sae.train.val_every),
             "--patience",     str(cfg.sae.train.patience),
