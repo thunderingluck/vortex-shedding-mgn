@@ -86,7 +86,7 @@ def encode_snaps(snaps, sae, device):
     Z_list, vel_list, pres_list = [], [], []
     for s in snaps:
         h = torch.from_numpy(s["hL"]).to(device)
-        z = sae.encode(h).cpu().numpy()
+        z = sae.encode(h).detach().cpu().numpy()
         Z_list.append(z)
         vel_list.append(s["velocity"])              # (N, 2)
         pres_list.append(s["pressure"])             # (N, 1)
@@ -159,7 +159,7 @@ def temporal_profiles(snaps, sae, device, dims):
     out = []
     for s in snaps:
         h = torch.from_numpy(s["hL"]).to(device)
-        z = sae.encode(h).cpu().numpy()          # (N, d_hid)
+        z = sae.encode(h).detach().cpu().numpy()          # (N, d_hid)
         out.append(z[:, dims].mean(axis=0))      # (len(dims),)
     return np.stack(out)                          # (T, len(dims))
 
@@ -177,7 +177,7 @@ def fig_spatial(snaps, sae, device, dims, t_indices, out_path):
             ax  = axes[row][col]
             s   = snaps[t]
             h   = torch.from_numpy(s["hL"]).to(device)
-            z   = sae.encode(h).cpu().numpy()
+            z   = sae.encode(h).detach().cpu().numpy()
             a   = z[:, dim]
             tri = make_tri(s["mesh_pos"], s["cells"])
             a_c = np.clip(a, 0, np.percentile(a, 99) + 1e-12)
