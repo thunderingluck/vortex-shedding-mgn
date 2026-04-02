@@ -14,7 +14,6 @@ checkpoints/
 *.ckpt
 *.pth
 sae_interp/checkpoints_rand_3e-4/
-sae_interp/checkpoints_rand_3e-4_long/
 sae_interp/figures
 
 # ==== sbatch scripts ====
@@ -41,3 +40,9 @@ hydra/
 *.png
 *.mp4
 .DS_Store
+
+# ==== Exceptions ====
+!sae_interp/checkpoints_rand_3e-4_long/
+!sae_interp/checkpoints_rand_3e-4_long/*.pt
+!sae_interp/checkpoints_rand_3e-4_long/*.csv
+!sae_interp/checkpoints_rand_3e-4_long/*.png
