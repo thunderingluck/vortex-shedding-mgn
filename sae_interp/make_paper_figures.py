@@ -35,8 +35,12 @@ from saliency import select_topk_global
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 
-def load_trajectory(emb_dir: str, traj_id: str):
-    """Return list of (hL, mesh_pos, cells) for every step of traj_id, sorted."""
+def load_trajectory(emb_dir: str, traj_id: str, step_indices: list = None):
+    """Return list of (hL, mesh_pos, cells) for steps of traj_id, sorted.
+
+    If step_indices is given, only load those indices (0-based into the sorted
+    file list) rather than all steps.
+    """
     pattern = f"traj_{traj_id}_step_"
     files = sorted(
         f for f in os.listdir(emb_dir) if f.startswith(pattern) and f.endswith(".npz")
@@ -45,6 +49,8 @@ def load_trajectory(emb_dir: str, traj_id: str):
         raise FileNotFoundError(
             f"No files matching 'traj_{traj_id}_step_*.npz' in {emb_dir}"
         )
+    if step_indices is not None:
+        files = [files[i] for i in step_indices if i < len(files)]
     steps = []
     for fname in files:
         # extract step number from filename, e.g. traj_0006_step_0042.npz -> 42
@@ -96,7 +102,7 @@ def aggregate(Z_t, dims):
 
 # ── Figure 2 ─────────────────────────────────────────────────────────────────
 
-def figure2(Z_list, steps_data, topk_dims, t_indices, eta_list, out_dir, metric):
+def figure2(Z_list, steps_data, topk_dims, t_indices, eta_list, out_dir, metric, traj_id):
     """
     Rows = time steps, Cols = eta values.
     Shows red scatter of top-eta nodes on the mesh background.
@@ -136,7 +142,7 @@ def figure2(Z_list, steps_data, topk_dims, t_indices, eta_list, out_dir, metric)
                         va="center", ha="right", rotation=90)
 
     fig.suptitle(
-        f"Fig 2 – Aggregated salient dims (metric={metric}, K={len(topk_dims)})",
+        f"Fig 2 – Aggregated salient dims (traj={traj_id}, metric={metric}, K={len(topk_dims)})",
         fontsize=11,
     )
     fig.tight_layout()
@@ -148,7 +154,7 @@ def figure2(Z_list, steps_data, topk_dims, t_indices, eta_list, out_dir, metric)
 
 # ── Figure 3 ─────────────────────────────────────────────────────────────────
 
-def figure3(Z_list, steps_data, topk_dims, t_indices, eta, out_dir, n_dims=3):
+def figure3(Z_list, steps_data, topk_dims, t_indices, eta, out_dir, traj_id, n_dims=3):
     """
     Shows n_dims individual latent dimensions (top n_dims from mean_abs Top-K),
     as columns; rows = time steps.
@@ -191,7 +197,7 @@ def figure3(Z_list, steps_data, topk_dims, t_indices, eta, out_dir, n_dims=3):
                         va="center", ha="right", rotation=90)
 
     fig.suptitle(
-        f"Fig 3 – Individual latent dimensions (mean_abs Top-{n_dims}, $\\eta$={eta})",
+        f"Fig 3 – Individual latent dimensions (traj={traj_id}, mean_abs Top-{n_dims}, $\\eta$={eta})",
         fontsize=11,
     )
     fig.tight_layout()
@@ -262,6 +268,8 @@ def main():
                    help="comma-separated snapshot indices for plotting")
     p.add_argument("--jaccard", action="store_true",
                    help="also produce Fig 1 (Jaccard) — slow for large traj")
+    p.add_argument("--fig3_only", action="store_true",
+                   help="only produce Fig 3; loads only the needed timesteps to save memory")
     args = p.parse_args()
 
     os.makedirs(args.out_dir, exist_ok=True)
@@ -285,7 +293,10 @@ def main():
     emb_dir = args.emb_dir
     if not os.path.isabs(emb_dir):
         emb_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), emb_dir)
-    steps_data = load_trajectory(emb_dir, args.traj_id)
+
+    t_indices_raw = [int(x) for x in args.t_steps.split(",")]
+    selective_indices = t_indices_raw if args.fig3_only else None
+    steps_data = load_trajectory(emb_dir, args.traj_id, step_indices=selective_indices)
     T = len(steps_data)
     print(f"loaded trajectory {args.traj_id}: {T} steps, "
           f"{steps_data[0]['hL'].shape[0]} nodes")
@@ -300,19 +311,25 @@ def main():
     np.save(os.path.join(args.out_dir, "global_scores.npy"), scores)
     print(f"top-{args.topk} dims (metric={args.metric}): {topk_dims[:10]} ...")
 
+    # ── Figure 3 only: use mean_abs over the same (small) Z_all ─────────────
+    from saliency import select_topk_global as stg
+    dims_mean_abs, _ = stg(Z_all, k=10, metric="mean_abs")
+    del Z_all  # free the large concatenated array
+
     # ── time step indices ────────────────────────────────────────────────────
-    t_indices = [int(x) for x in args.t_steps.split(",")]
-    t_indices = [min(t, T - 1) for t in t_indices]
+    if args.fig3_only:
+        # steps_data contains exactly the requested steps; use sequential indices
+        t_indices = list(range(T))
+    else:
+        t_indices = [min(int(x), T - 1) for x in args.t_steps.split(",")]
     eta_list  = [int(x) for x in args.eta_list.split(",")]
 
     # ── Figure 2 ────────────────────────────────────────────────────────────
-    figure2(Z_list, steps_data, topk_dims, t_indices, eta_list, args.out_dir, args.metric)
+    if not args.fig3_only:
+        figure2(Z_list, steps_data, topk_dims, t_indices, eta_list, args.out_dir, args.metric, args.traj_id)
 
     # ── Figure 3 ────────────────────────────────────────────────────────────
-    # Use mean_abs to pick 3 individual dims for Fig 3 (paper uses mean_abs Top-10)
-    from saliency import select_topk_global as stg
-    dims_mean_abs, _ = stg(Z_all, k=10, metric="mean_abs")
-    figure3(Z_list, steps_data, dims_mean_abs, t_indices, args.eta_fig3, args.out_dir, n_dims=3)
+    figure3(Z_list, steps_data, dims_mean_abs, t_indices, args.eta_fig3, args.out_dir, args.traj_id, n_dims=3)
 
     # ── Figure 1 (optional, slow) ────────────────────────────────────────────
     if args.jaccard:
