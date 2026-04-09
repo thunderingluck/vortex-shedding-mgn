@@ -12,7 +12,6 @@ Full run (from sae_interp/):
 """
 
 import argparse
-import collections
 import csv
 import os
 import glob
@@ -37,6 +36,8 @@ def parse_args():
     p.add_argument("--emb_dir", default="../sae_embeddings/consolidated")
     p.add_argument("--ckpt_dir", default=None,
                    help="Checkpoint directory (default: checkpoints_topk_K{k})")
+    p.add_argument("--resume_ckpt", default=None,
+                   help="Path to sae_latest.pt to resume from")
     p.add_argument("--d_in", type=int, default=128)
     p.add_argument("--expansion", type=int, default=8)
     p.add_argument("--k", type=int, default=32,
@@ -207,29 +208,62 @@ def main():
     os.makedirs(args.ckpt_dir, exist_ok=True)
 
     # ------------------------------------------------------------------
-    # 4. Metric logging
-    # ------------------------------------------------------------------
-    csv_path = os.path.join(args.ckpt_dir, "metrics.csv")
-    csv_fields = ["step", "epoch", "k", "train_mse", "val_mse", "val_l0", "dead_frac"]
-    csv_file = open(csv_path, "w", newline="")
-    csv_writer = csv.DictWriter(csv_file, fieldnames=csv_fields)
-    csv_writer.writeheader()
-    metric_log = []
-
-    # ------------------------------------------------------------------
-    # 5. Training loop
+    # 4. Resume from checkpoint if requested
     # ------------------------------------------------------------------
     global_step = 0
     best_val_mse = float("inf")
     patience_count = 0
     ema_mse = 0.0
+    start_epoch = 1
+
+    if args.resume_ckpt is not None:
+        print(f"Resuming from {args.resume_ckpt}")
+        ckpt = torch.load(args.resume_ckpt, map_location=device)
+        sae.load_state_dict(ckpt["sae_state"])
+        opt.load_state_dict(ckpt["opt_state"])
+        global_step   = ckpt["step"]
+        best_val_mse  = ckpt["best_val_mse"]
+        patience_count = ckpt["patience_count"]
+        ema_mse       = ckpt["ema_mse"]
+        # Resume from the start of the next epoch so we don't re-run a partial epoch
+        start_epoch   = ckpt["epoch"] + 1
+        print(f"  Resumed at step={global_step}, epoch={ckpt['epoch']}, "
+              f"best_val_mse={best_val_mse:.4e}, patience={patience_count}")
+
+    # ------------------------------------------------------------------
+    # 5. Metric logging
+    # ------------------------------------------------------------------
+    csv_path = os.path.join(args.ckpt_dir, "metrics.csv")
+    csv_fields = ["step", "epoch", "k", "train_mse", "val_mse", "val_l0", "dead_frac"]
+
+    # On resume, read existing log for plotting continuity then append
+    metric_log = []
+    if args.resume_ckpt is not None and os.path.exists(csv_path):
+        with open(csv_path, newline="") as f:
+            for row in csv.DictReader(f):
+                metric_log.append({
+                    "step": int(row["step"]), "epoch": int(row["epoch"]),
+                    "k": int(row["k"]), "train_mse": float(row["train_mse"]),
+                    "val_mse": float(row["val_mse"]), "val_l0": float(row["val_l0"]),
+                    "dead_frac": float(row["dead_frac"]),
+                })
+        csv_file = open(csv_path, "a", newline="")
+        csv_writer = csv.DictWriter(csv_file, fieldnames=csv_fields)
+    else:
+        csv_file = open(csv_path, "w", newline="")
+        csv_writer = csv.DictWriter(csv_file, fieldnames=csv_fields)
+        csv_writer.writeheader()
+
+    # ------------------------------------------------------------------
+    # 6. Training loop
+    # ------------------------------------------------------------------
     ema_alpha = 0.98
 
     print(f"\nStarting training: K={args.k}, batch_size={args.batch_size}, "
           f"val_every={args.val_every}, patience={args.patience}\n")
 
     try:
-        for epoch in range(1, args.max_epochs + 1):
+        for epoch in range(start_epoch, args.max_epochs + 1):
             perm = torch.from_numpy(rng.permutation(n_train))
 
             for start in range(0, n_train, args.batch_size):
@@ -238,7 +272,7 @@ def main():
                     continue
                 h = train_data[idx].to(device)
 
-                recon, recon_d, l0_d = sae.loss(h)
+                recon, _, _ = sae.loss(h)
                 opt.zero_grad(set_to_none=True)
                 recon.backward()
                 torch.nn.utils.clip_grad_norm_(sae.parameters(), max_norm=1.0)
@@ -273,14 +307,18 @@ def main():
                         ckpt_path = os.path.join(args.ckpt_dir, "sae_best.pt")
                         torch.save({
                             "sae_state": sae.state_dict(),
+                            "opt_state": opt.state_dict(),
                             "d_in": args.d_in,
                             "expansion": args.expansion,
                             "k": args.k,
                             "step": global_step,
                             "epoch": epoch,
+                            "best_val_mse": best_val_mse,
                             "val_mse": best_val_mse,
                             "val_l0": val_l0,
                             "dead_frac": dead_frac,
+                            "patience_count": patience_count,
+                            "ema_mse": ema_mse,
                             "emb_mean": emb_mean.cpu(),
                             "emb_std": emb_std.cpu(),
                             "args": vars(args),
@@ -296,14 +334,18 @@ def main():
 
                     torch.save({
                         "sae_state": sae.state_dict(),
+                        "opt_state": opt.state_dict(),
                         "d_in": args.d_in,
                         "expansion": args.expansion,
                         "k": args.k,
                         "step": global_step,
                         "epoch": epoch,
+                        "best_val_mse": best_val_mse,
                         "val_mse": val_mse,
                         "val_l0": val_l0,
                         "dead_frac": dead_frac,
+                        "patience_count": patience_count,
+                        "ema_mse": ema_mse,
                         "emb_mean": emb_mean.cpu(),
                         "emb_std": emb_std.cpu(),
                         "args": vars(args),
