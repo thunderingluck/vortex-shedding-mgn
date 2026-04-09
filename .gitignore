@@ -13,12 +13,14 @@ checkpoints/
 *.pt
 *.ckpt
 *.pth
-sae_interp/checkpoints_rand_3e-4/
+sae_interp/checkpoints_rand_*/
+sae_interp/checkpoints_topk_K*/
 sae_interp/figures
-sae_interp/checkpoints_rand_1e-3/
+
 
 # ==== sbatch scripts ====
 *.sh
+*.sbatch
 
 # ==== Slurm logs ====
 *.out
@@ -32,6 +34,9 @@ wandb/
 __pycache__/
 *.pyc
 
+# ==== legacy code ====
+debug_dataset_splits.py
+
 # ==== Hydra ====
 .multirun/
 hydra/
@@ -41,7 +46,6 @@ hydra/
 *.png
 *.mp4
 .DS_Store
-docs.txt
 
 # ==== Exceptions ====
 !sae_interp/checkpoints_rand_3e-4_long/
