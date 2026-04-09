@@ -15,6 +15,7 @@ checkpoints/
 *.pth
 sae_interp/checkpoints_rand_3e-4/
 sae_interp/figures
+sae_interp/checkpoints_rand_1e-3/
 
 # ==== sbatch scripts ====
 *.sh
