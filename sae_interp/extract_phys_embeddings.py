@@ -13,7 +13,8 @@ Output per file (sae_embeddings/phys/traj_XXXX_step_YYYY.npz):
     node_type  (N, 1)    – node type integer
 
 Usage (from repo root):
-    python sae_interp/extract_phys_embeddings.py --num_traj 10
+    python sae_interp/extract_phys_embeddings.py --num_traj 100
+    python sae_interp/extract_phys_embeddings.py --num_traj 100 --resume
 """
 
 import argparse
@@ -32,7 +33,6 @@ sys.path.insert(0, REPO_ROOT)
 from tfrecord.torch.dataset import TFRecordDataset
 from physicsnemo.models.meshgraphnet import MeshGraphNet
 from physicsnemo.datapipes.gnn.vortex_shedding_dataset import VortexSheddingDataset
-from physicsnemo.utils import load_checkpoint
 
 # ── default paths (all relative to REPO_ROOT) ────────────────────────────────
 DEFAULT_DATA_DIR  = os.path.join(REPO_ROOT, "raw_dataset/cylinder_flow/cylinder_flow")
@@ -54,7 +54,7 @@ def get_hL(model, node_x, edge_attr, graph):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--num_traj",   type=int, default=10,
+    p.add_argument("--num_traj",   type=int, default=100,
                    help="Number of test trajectories to process")
     p.add_argument("--num_steps",  type=int, default=600,
                    help="Timesteps per trajectory (max 600)")
@@ -62,6 +62,8 @@ def main():
     p.add_argument("--ckpt_dir",   default=DEFAULT_CKPT_DIR)
     p.add_argument("--stats_dir",  default=DEFAULT_STATS_DIR)
     p.add_argument("--out_dir",    default=DEFAULT_OUT_DIR)
+    p.add_argument("--resume",     action="store_true",
+                   help="Skip trajectories whose files are already complete")
     args = p.parse_args()
 
     os.makedirs(args.out_dir, exist_ok=True)
@@ -77,15 +79,11 @@ def main():
     edge_stats = load_json(os.path.join(args.stats_dir, "edge_stats.json"))
     node_stats = load_json(os.path.join(args.stats_dir, "node_stats.json"))
 
-    # ── load MGN ─────────────────────────────────────────────────────────────
-    model = MeshGraphNet(
-        input_dim_nodes=6,
-        input_dim_edges=3,
-        output_dim=3,
-    ).to(device)
+    # ── load MGN (uses from_checkpoint to avoid distributed manager) ──────────
+    ckpt_path = os.path.join(args.ckpt_dir, "MeshGraphNet.0.32.mdlus")
+    model = MeshGraphNet.from_checkpoint(ckpt_path).to(device)
     model.eval()
-    load_checkpoint(args.ckpt_dir, models=model, device=device)
-    print(f"loaded MGN from {args.ckpt_dir}")
+    print(f"loaded MGN from {ckpt_path}")
 
     # ── open tfrecord ─────────────────────────────────────────────────────────
     tfrecord_path = os.path.join(args.data_dir, "test.tfrecord")
@@ -107,6 +105,18 @@ def main():
             break
 
         T = min(args.num_steps, data_np["velocity"].shape[0])
+        expected_steps = T - 1
+
+        # resume: skip trajectories where all steps already exist
+        if args.resume:
+            last_fname = os.path.join(
+                args.out_dir, f"traj_{traj_id:04d}_step_{expected_steps - 1:04d}.npz"
+            )
+            if os.path.exists(last_fname):
+                print(f"  traj {traj_id:04d}: already complete, skipping")
+                total_snapshots += expected_steps
+                continue
+
         data_np = {k: v[:T] for k, v in data_np.items()}
 
         # build static graph
@@ -136,14 +146,21 @@ def main():
         node_type_oh = node_type_oh.to(device)
 
         for step_id in range(T - 1):
+            fname = f"traj_{traj_id:04d}_step_{step_id:04d}.npz"
+            fpath = os.path.join(args.out_dir, fname)
+
+            # resume: skip individual steps that are already written
+            if args.resume and os.path.exists(fpath):
+                total_snapshots += 1
+                continue
+
             node_x    = torch.cat([vel_norm[step_id].to(device), node_type_oh], dim=-1)
             graph.x   = node_x
             hL        = get_hL(model, graph.x, graph.edge_attr, graph)
             hL_np     = hL.cpu().numpy().astype(np.float32)
 
-            fname = f"traj_{traj_id:04d}_step_{step_id:04d}.npz"
             np.savez_compressed(
-                os.path.join(args.out_dir, fname),
+                fpath,
                 hL        = hL_np,
                 velocity  = velocity[step_id].numpy().astype(np.float32),  # (N, 2)
                 pressure  = pressure_np[step_id],                           # (N, 1)
