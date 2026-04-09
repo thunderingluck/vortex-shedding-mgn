@@ -2,6 +2,8 @@
 
 ML-based surrogates such as MeshGraphNets offer a practical alternative to CFD solvers, but their latent representations are opaque and hinder adoption in safety-critical settings. Here, I am replicating [Interpreting CFD Surrogates through Sparse Autoencoders](https://arxiv.org/abs/2507.16069), training a sparse autoencoder on frozen MGN node embeddings, and extending their analysis. Currently working on labelling the SAE's learned features
 
+See [sae_interp/RESULTS.md](sae_interp/RESULTS.md) for training runs, metrics, and feature analysis findings.
+
 This repository contains modifications to the NVIDIA PhysicsNeMo
 `vortex_shedding_mgn` example.
 
