@@ -41,6 +41,7 @@ hydra/
 *.png
 *.mp4
 .DS_Store
+docs.txt
 
 # ==== Exceptions ====
 !sae_interp/checkpoints_rand_3e-4_long/
