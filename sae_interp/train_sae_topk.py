@@ -51,6 +51,10 @@ def parse_args():
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--val_frac", type=float, default=0.2)
     p.add_argument("--max_trajs", type=int, default=None)
+    p.add_argument("--aux_alpha", type=float, default=1/32,
+                   help="Weight of the auxiliary dead-feature loss (0 to disable)")
+    p.add_argument("--dead_threshold", type=float, default=1e-4,
+                   help="Features with firing EMA below this are considered dead")
     return p.parse_args()
 
 
@@ -110,31 +114,47 @@ def validate(sae, val_data: torch.Tensor, device: str, batch_size: int = 8192):
 def save_plots(log: list[dict], ckpt_dir: str):
     if not log:
         return
-    steps      = [r["step"]       for r in log]
+    steps      = [r["step"]                   for r in log]
     train_mse  = [r["train_mse"]  for r in log]
-    val_mse    = [r["val_mse"]    for r in log]
-    val_l0     = [r["val_l0"]     for r in log]
-    dead_frac  = [r["dead_frac"]  for r in log]
+    val_mse    = [r["val_mse"]                for r in log]
+    val_l0     = [r["val_l0"]                 for r in log]
+    dead_frac  = [r["dead_frac"]              for r in log]
+    aux_loss   = [r.get("aux_loss", 0.0)      for r in log]
+    n_dead     = [r.get("n_dead", 0)          for r in log]
 
-    fig, axes = plt.subplots(1, 3, figsize=(14, 4))
+    fig, axes = plt.subplots(1, 4, figsize=(18, 4))
     fig.suptitle(f"Top-K SAE Training (K={log[0]['k']})")
 
     ax = axes[0]
-    ax.semilogy(steps, train_mse, label="train_mse (EMA)")
-    ax.semilogy(steps, val_mse,   label="val_mse")
+    ax.semilogy(steps, train_mse, label="train_mse (EMA, element-wise)")
+    ax.semilogy(steps, val_mse,   label="val_mse (element-wise)")
     ax.set_xlabel("step"); ax.set_ylabel("MSE (log)"); ax.set_title("Reconstruction MSE")
     ax.legend()
 
     ax = axes[1]
     ax.plot(steps, val_l0)
     ax.axhline(log[0]["k"], color="gray", linestyle="--", label=f"K={log[0]['k']}")
-    ax.set_xlabel("step"); ax.set_ylabel("L0"); ax.set_title("Val L0 (should converge to K)")
+    ax.ticklabel_format(useOffset=False)
+    ax.set_xlabel("step"); ax.set_ylabel("L0"); ax.set_title("Val L0 (should ≈ K)")
     ax.legend()
 
     ax = axes[2]
-    ax.plot(steps, dead_frac)
+    ax.plot(steps, dead_frac, label="dead_frac (val)")
+    ax2 = ax.twinx()
+    ax2.plot(steps, n_dead, color="tab:orange", linestyle="--", label="n_dead (EMA)")
+    ax2.set_ylabel("n_dead")
     ax.set_xlabel("step"); ax.set_ylabel("fraction"); ax.set_title("Dead features")
     ax.set_ylim(0, 1)
+    lines1, labels1 = ax.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    ax.legend(lines1 + lines2, labels1 + labels2, fontsize=8)
+
+    ax = axes[3]
+    if any(v > 0 for v in aux_loss):
+        ax.semilogy(steps, [max(v, 1e-12) for v in aux_loss])
+    else:
+        ax.plot(steps, aux_loss)
+    ax.set_xlabel("step"); ax.set_ylabel("aux loss"); ax.set_title("Auxiliary (dead) loss")
 
     plt.tight_layout()
     path = os.path.join(ckpt_dir, "training_curves.png")
@@ -234,7 +254,12 @@ def main():
     # 5. Metric logging
     # ------------------------------------------------------------------
     csv_path = os.path.join(args.ckpt_dir, "metrics.csv")
-    csv_fields = ["step", "epoch", "k", "train_mse", "val_mse", "val_l0", "dead_frac"]
+    csv_fields = ["step", "epoch", "k", "train_mse", "val_mse", "val_l0", "dead_frac", "aux_loss", "n_dead"]
+
+    # Dead-feature tracking: EMA of per-feature firing frequency.
+    # Initialised above zero so no features start as "dead".
+    feature_firing_ema = torch.full((sae.d_hid,), 0.01, device=device)
+    firing_ema_decay = 0.99  # ~100-step time constant
 
     # On resume, read existing log for plotting continuity then append
     metric_log = []
@@ -246,6 +271,8 @@ def main():
                     "k": int(row["k"]), "train_mse": float(row["train_mse"]),
                     "val_mse": float(row["val_mse"]), "val_l0": float(row["val_l0"]),
                     "dead_frac": float(row["dead_frac"]),
+                    "aux_loss": float(row.get("aux_loss", 0.0)),
+                    "n_dead": int(float(row.get("n_dead", 0))),
                 })
         csv_file = open(csv_path, "a", newline="")
         csv_writer = csv.DictWriter(csv_file, fieldnames=csv_fields)
@@ -272,12 +299,23 @@ def main():
                     continue
                 h = train_data[idx].to(device)
 
-                recon, _, _ = sae.loss(h)
+                dead_mask = feature_firing_ema < args.dead_threshold
+                total, recon, _, aux_loss = sae.loss_with_aux(
+                    h, dead_mask, alpha=args.aux_alpha
+                )
                 opt.zero_grad(set_to_none=True)
-                recon.backward()
+                total.backward()
                 torch.nn.utils.clip_grad_norm_(sae.parameters(), max_norm=1.0)
                 opt.step()
                 sae.renorm_decoder_rows_()
+
+                # Update firing EMA (no grad needed)
+                with torch.no_grad():
+                    _, z = sae(h)
+                    fired_rate = (z > 0).float().mean(dim=0)
+                    feature_firing_ema.mul_(firing_ema_decay).add_(
+                        fired_rate * (1 - firing_ema_decay)
+                    )
 
                 global_step += 1
                 ema_mse = ema_alpha * ema_mse + (1 - ema_alpha) * recon.item()
@@ -285,16 +323,19 @@ def main():
                 if global_step % args.val_every == 0:
                     val_mse, val_l0, dead_frac = validate(sae, val_data, device)
 
+                    n_dead = int((feature_firing_ema < args.dead_threshold).sum().item())
                     print(
                         f"[step {global_step:7d} | ep {epoch}] "
                         f"train_mse={ema_mse:.4e}  "
-                        f"val_mse={val_mse:.4e}  val_L0={val_l0:.1f}  dead={dead_frac:.3f}"
+                        f"val_mse={val_mse:.4e}  val_L0={val_l0:.1f}  "
+                        f"dead={dead_frac:.3f}  n_dead={n_dead}  aux={aux_loss.item():.3e}"
                     )
 
                     row = {
                         "step": global_step, "epoch": epoch, "k": args.k,
                         "train_mse": ema_mse, "val_mse": val_mse,
                         "val_l0": val_l0, "dead_frac": dead_frac,
+                        "aux_loss": aux_loss.item(), "n_dead": n_dead,
                     }
                     csv_writer.writerow(row)
                     csv_file.flush()

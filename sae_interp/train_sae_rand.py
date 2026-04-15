@@ -68,6 +68,8 @@ def parse_args():
     p.add_argument("--val_frac", type=float, default=0.2)
     p.add_argument("--max_trajs", type=int, default=None,
                    help="Cap the number of trajectories loaded (useful for smoke tests)")
+    p.add_argument("--resume_ckpt", default=None,
+                   help="Path to sae_latest.pt (or sae_best.pt) to resume from")
     return p.parse_args()
 
 
@@ -242,31 +244,61 @@ def main():
     os.makedirs(args.ckpt_dir, exist_ok=True)
 
     # ------------------------------------------------------------------
-    # 4. Metric logging setup
-    # ------------------------------------------------------------------
-    csv_path = os.path.join(args.ckpt_dir, "metrics.csv")
-    csv_fields = ["step", "epoch", "train_loss", "train_recon", "train_L1",
-                  "val_loss", "val_mse", "val_l0", "dead_frac"]
-    csv_file = open(csv_path, "w", newline="")
-    csv_writer = csv.DictWriter(csv_file, fieldnames=csv_fields)
-    csv_writer.writeheader()
-    metric_log = []  # in-memory copy for plotting at the end
-
-    # ------------------------------------------------------------------
-    # 5. Training loop
+    # 4. Resume from checkpoint if requested
     # ------------------------------------------------------------------
     global_step = 0
     best_val_loss = float("inf")
     patience_count = 0
-    l0_window = collections.deque(maxlen=args.l0_patience) if args.l0_patience else None
     ema_loss = ema_recon = ema_spars = 0.0
+    start_epoch = 1
+    metric_log = []
+
+    if args.resume_ckpt is not None:
+        print(f"Resuming from {args.resume_ckpt}")
+        ckpt = torch.load(args.resume_ckpt, map_location=device)
+        sae.load_state_dict(ckpt["sae_state"])
+        global_step = ckpt["step"]
+        start_epoch = ckpt["epoch"] + 1
+        # Reset patience/best so the new lambda gets a fair evaluation window
+        best_val_loss = float("inf")
+        patience_count = 0
+        print(f"  Resumed at step={global_step}, epoch={ckpt['epoch']}, "
+              f"lam={ckpt.get('lam', '?')} -> now using lam={args.lam}")
+
+    # ------------------------------------------------------------------
+    # 5. Metric logging setup
+    # ------------------------------------------------------------------
+    csv_path = os.path.join(args.ckpt_dir, "metrics.csv")
+    csv_fields = ["step", "epoch", "train_loss", "train_recon", "train_L1",
+                  "val_loss", "val_mse", "val_l0", "dead_frac"]
+    if args.resume_ckpt is not None and os.path.exists(csv_path):
+        csv_file = open(csv_path, "a", newline="")
+        csv_writer = csv.DictWriter(csv_file, fieldnames=csv_fields)
+        with open(csv_path, newline="") as f:
+            for row in csv.DictReader(f):
+                metric_log.append({
+                    "step": int(row["step"]), "epoch": int(row["epoch"]),
+                    "train_loss": float(row["train_loss"]),
+                    "train_recon": float(row["train_recon"]),
+                    "train_L1": float(row["train_L1"]),
+                    "val_loss": float(row["val_loss"]),
+                    "val_mse": float(row["val_mse"]),
+                    "val_l0": float(row["val_l0"]),
+                    "dead_frac": float(row["dead_frac"]),
+                })
+    else:
+        csv_file = open(csv_path, "w", newline="")
+        csv_writer = csv.DictWriter(csv_file, fieldnames=csv_fields)
+        csv_writer.writeheader()
+
+    l0_window = collections.deque(maxlen=args.l0_patience) if args.l0_patience else None
     ema_alpha = 0.98
 
     print(f"\nStarting training: batch_size={args.batch_size}, "
           f"val_every={args.val_every} steps, patience={args.patience} evals\n")
 
     try:
-        for epoch in range(1, args.max_epochs + 1):
+        for epoch in range(start_epoch, args.max_epochs + 1):
             # Fresh shuffle of all training nodes each epoch
             perm = torch.from_numpy(rng.permutation(n_train))
 

@@ -73,18 +73,27 @@ def save_plots_rand(log: list[dict], ckpt_dir: str):
 
 
 def save_plots_topk(log: list[dict], ckpt_dir: str):
-    steps      = [r["step"]                   for r in log]
-    train_mse  = [r["train_mse"] / D_IN       for r in log]  # normalize sum→mean
-    val_mse    = [r["val_mse"]                for r in log]
+    # Old runs logged train_mse as sum over d_in (needs /D_IN to compare with val_mse).
+    # New runs (identified by presence of "aux_loss" column) log element-wise mean directly.
+    fixed_loss = "aux_loss" in log[0]
+    steps      = [r["step"]                                    for r in log]
+    train_mse  = [r["train_mse"] if fixed_loss
+                  else r["train_mse"] / D_IN                   for r in log]
+    val_mse    = [r["val_mse"]                                 for r in log]
     val_l0     = [r["val_l0"]                 for r in log]
     dead_frac  = [r["dead_frac"]              for r in log]
+    aux_loss   = [r.get("aux_loss", 0.0)      for r in log]
+    n_dead     = [r.get("n_dead", 0)          for r in log]
     k = log[0]["k"]
 
-    fig, axes = plt.subplots(1, 3, figsize=(14, 4))
+    has_aux = any(v > 0 for v in aux_loss)
+    ncols = 4 if has_aux else 3
+    fig, axes = plt.subplots(1, ncols, figsize=(4.5 * ncols, 4))
     fig.suptitle(f"Top-K SAE Training (K={k})")
 
     ax = axes[0]
-    ax.semilogy(steps, train_mse, label="train_mse/128 (EMA)")
+    train_label = "train_mse (EMA)" if fixed_loss else "train_mse/128 (EMA)"
+    ax.semilogy(steps, train_mse, label=train_label)
     ax.semilogy(steps, val_mse,   label="val_mse")
     ax.set_xlabel("step"); ax.set_ylabel("MSE (log)"); ax.set_title("Reconstruction MSE")
     ax.legend()
@@ -92,13 +101,28 @@ def save_plots_topk(log: list[dict], ckpt_dir: str):
     ax = axes[1]
     ax.plot(steps, val_l0)
     ax.axhline(k, color="gray", linestyle="--", label=f"K={k}")
-    ax.set_xlabel("step"); ax.set_ylabel("L0"); ax.set_title("Val L0 (should converge to K)")
+    ax.ticklabel_format(useOffset=False)
+    ax.set_xlabel("step"); ax.set_ylabel("L0"); ax.set_title("Val L0 (should ≈ K)")
     ax.legend()
 
     ax = axes[2]
-    ax.plot(steps, dead_frac)
+    ax.plot(steps, dead_frac, label="dead_frac (val)")
+    if has_aux:
+        ax2 = ax.twinx()
+        ax2.plot(steps, n_dead, color="tab:orange", linestyle="--", label="n_dead (EMA)")
+        ax2.set_ylabel("n_dead")
+        lines1, labels1 = ax.get_legend_handles_labels()
+        lines2, labels2 = ax2.get_legend_handles_labels()
+        ax.legend(lines1 + lines2, labels1 + labels2, fontsize=8)
+    else:
+        ax.legend()
     ax.set_xlabel("step"); ax.set_ylabel("fraction"); ax.set_title("Dead features")
     ax.set_ylim(0, 1)
+
+    if has_aux:
+        ax = axes[3]
+        ax.semilogy(steps, [max(v, 1e-12) for v in aux_loss])
+        ax.set_xlabel("step"); ax.set_ylabel("aux loss"); ax.set_title("Auxiliary (dead) loss")
 
     plt.tight_layout()
     path = os.path.join(ckpt_dir, "training_curves.png")
@@ -108,12 +132,12 @@ def save_plots_topk(log: list[dict], ckpt_dir: str):
 
 
 def load_csv(path: str) -> list[dict]:
+    int_cols = {"step", "epoch", "k", "n_dead"}
     with open(path, newline="") as f:
         reader = csv.DictReader(f)
         rows = []
         for row in reader:
-            rows.append({k: (int(v) if k in ("step", "epoch") else
-                             (int(v) if k == "k" else float(v)))
+            rows.append({k: (int(float(v)) if k in int_cols else float(v))
                          for k, v in row.items()})
     return rows
 

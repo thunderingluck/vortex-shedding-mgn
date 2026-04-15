@@ -99,41 +99,52 @@ def encode_snaps(snaps, sae, device):
 
 # ── correlation ───────────────────────────────────────────────────────────────
 
-def pearson_r(x: np.ndarray, y: np.ndarray) -> float:
-    """Pearson r between two flat arrays."""
-    xm = x - x.mean()
-    ym = y - y.mean()
-    denom = np.sqrt((xm**2).sum() * (ym**2).sum())
-    return float(np.dot(xm, ym) / denom) if denom > 1e-12 else 0.0
-
-
-def compute_correlations(Z, vel, pres):
+class CorrAccumulator:
     """
-    Returns dict of arrays shape (d_hid,):
-        r_u, r_v, r_p, r_speed, r_abs_max
+    Streams snapshots one at a time and accumulates the sufficient statistics
+    needed for Pearson r (n, Σz, Σz², Σy, Σy², Σzy) without storing Z in memory.
+
+    Physical fields tracked: [u, v, p, speed]  (indices 0-3).
     """
-    u     = vel[:, 0]
-    v     = vel[:, 1]
-    p     = pres[:, 0]
-    speed = np.sqrt(u**2 + v**2)
 
-    d = Z.shape[1]
-    r_u     = np.zeros(d)
-    r_v     = np.zeros(d)
-    r_p     = np.zeros(d)
-    r_speed = np.zeros(d)
+    _FIELDS = ["r_u", "r_v", "r_p", "r_speed"]
 
-    for i in range(d):
-        zi = Z[:, i]
-        if zi.max() < 1e-12:   # dead feature – skip
-            continue
-        r_u[i]     = pearson_r(zi, u)
-        r_v[i]     = pearson_r(zi, v)
-        r_p[i]     = pearson_r(zi, p)
-        r_speed[i] = pearson_r(zi, speed)
+    def __init__(self, d_hid: int):
+        self.d      = d_hid
+        self.n      = 0
+        self.sum_z  = np.zeros(d_hid, dtype=np.float64)
+        self.sum_z2 = np.zeros(d_hid, dtype=np.float64)
+        self.sum_y  = np.zeros(4,     dtype=np.float64)
+        self.sum_y2 = np.zeros(4,     dtype=np.float64)
+        self.sum_zy = np.zeros((d_hid, 4), dtype=np.float64)  # (d, 4)
 
-    r_abs_max = np.max(np.abs(np.stack([r_u, r_v, r_p, r_speed])), axis=0)
-    return dict(r_u=r_u, r_v=r_v, r_p=r_p, r_speed=r_speed, r_abs_max=r_abs_max)
+    def update(self, Z: np.ndarray, vel: np.ndarray, pres: np.ndarray):
+        """Z: (M, d_hid)  vel: (M, 2)  pres: (M, 1)"""
+        u     = vel[:, 0].astype(np.float64)
+        v     = vel[:, 1].astype(np.float64)
+        p     = pres[:, 0].astype(np.float64)
+        speed = np.sqrt(u**2 + v**2)
+        Y     = np.stack([u, v, p, speed], axis=1)   # (M, 4)
+        Z64   = Z.astype(np.float64)
+
+        self.n       += Z64.shape[0]
+        self.sum_z   += Z64.sum(axis=0)
+        self.sum_z2  += (Z64 ** 2).sum(axis=0)
+        self.sum_y   += Y.sum(axis=0)
+        self.sum_y2  += (Y ** 2).sum(axis=0)
+        self.sum_zy  += Z64.T @ Y                    # (d, 4)
+
+    def finalize(self) -> dict:
+        """Return dict of arrays shape (d_hid,): r_u, r_v, r_p, r_speed, r_abs_max."""
+        n       = self.n
+        num     = n * self.sum_zy - self.sum_z[:, None] * self.sum_y[None, :]  # (d, 4)
+        denom_z = np.maximum(n * self.sum_z2 - self.sum_z ** 2, 0.0)           # (d,)
+        denom_y = np.maximum(n * self.sum_y2 - self.sum_y ** 2, 0.0)           # (4,)
+        denom   = np.sqrt(denom_z[:, None] * denom_y[None, :])                 # (d, 4)
+        r       = np.where(denom > 1e-12, num / denom, 0.0)                    # (d, 4)
+        r_abs_max = np.max(np.abs(r), axis=1)
+        return dict(r_u=r[:, 0], r_v=r[:, 1], r_p=r[:, 2],
+                    r_speed=r[:, 3], r_abs_max=r_abs_max)
 
 
 def save_csv(corr, out_path):
@@ -224,12 +235,26 @@ def fig_temporal(profiles, dims, corr, out_path):
     print(f"[fig] saved -> {out_path}")
 
 
-def fig_scatter(Z_flat, vel, pres, dims, corr, out_path, max_pts=5000):
-    """Scatter: feature activation vs best physical field."""
-    u, v = vel[:, 0], vel[:, 1]
-    p    = pres[:, 0]
-    speed = np.sqrt(u**2 + v**2)
-    fields = {"r_u": u, "r_v": v, "r_p": p, "r_speed": speed}
+def fig_scatter(snaps, sae, device, dims, corr, out_path, max_pts=5000):
+    """Scatter: feature activation vs best physical field (uses one trajectory)."""
+    zi_lists   = {dim: [] for dim in dims}
+    phys_lists = {k: [] for k in ("u", "v", "p", "speed")}
+
+    for s in snaps:
+        h = torch.from_numpy(s["hL"]).to(device)
+        z = sae.encode(h).detach().cpu().numpy()
+        u = s["velocity"][:, 0]; v = s["velocity"][:, 1]
+        p = s["pressure"][:, 0]
+        for dim in dims:
+            zi_lists[dim].append(z[:, dim])
+        phys_lists["u"].append(u); phys_lists["v"].append(v)
+        phys_lists["p"].append(p)
+        phys_lists["speed"].append(np.sqrt(u**2 + v**2))
+
+    zi_cat   = {dim: np.concatenate(zi_lists[dim])   for dim in dims}
+    phys_cat = {k:   np.concatenate(phys_lists[k])   for k in phys_lists}
+    fields   = {"r_u": phys_cat["u"], "r_v": phys_cat["v"],
+                "r_p": phys_cat["p"], "r_speed": phys_cat["speed"]}
 
     ncols = min(4, len(dims))
     nrows = (len(dims) + ncols - 1) // ncols
@@ -239,14 +264,13 @@ def fig_scatter(Z_flat, vel, pres, dims, corr, out_path, max_pts=5000):
 
     for k, dim in enumerate(dims):
         ax  = axes[k // ncols][k % ncols]
-        zi  = Z_flat[:, dim]
+        zi  = zi_cat[dim]
         vals = [corr["r_u"][dim], corr["r_v"][dim],
                 corr["r_p"][dim], corr["r_speed"][dim]]
-        best_key  = ["r_u","r_v","r_p","r_speed"][int(np.argmax(np.abs(vals)))]
-        best_r    = vals[int(np.argmax(np.abs(vals)))]
-        phys      = fields[best_key]
+        best_key = ["r_u","r_v","r_p","r_speed"][int(np.argmax(np.abs(vals)))]
+        best_r   = vals[int(np.argmax(np.abs(vals)))]
+        phys     = fields[best_key]
 
-        # subsample for readability
         mask = zi > 0
         idx  = np.where(mask)[0]
         if len(idx) > max_pts:
@@ -304,21 +328,26 @@ def main():
     corr_traj_ids = traj_ids if args.all_traj else [traj_ids[0]]
     print(f"using trajectories for correlation: {corr_traj_ids}")
 
-    Z_all, vel_all, pres_all = [], [], []
+    # ── streaming correlation (no Z_flat in memory) ───────────────────────────
+    # Encode one full trajectory at a time (batched for GPU efficiency), then
+    # immediately discard Z after updating the accumulator.
+    acc        = CorrAccumulator(sae.d_hid)
+    total_rows = 0
     for tid in corr_traj_ids:
         snaps = load_trajectory(phys_dir, tid)
-        Z, vel, pres = encode_snaps(snaps, sae, device)
-        Z_all.append(Z); vel_all.append(vel); pres_all.append(pres)
-        print(f"  traj {tid:04d}: {len(snaps)} snaps, {Z.shape[0]} node-steps")
+        H   = np.concatenate([s["hL"]       for s in snaps], axis=0)  # (T*N, d_in)
+        vel = np.concatenate([s["velocity"] for s in snaps], axis=0)
+        pre = np.concatenate([s["pressure"] for s in snaps], axis=0)
+        with torch.no_grad():
+            z = sae.encode(torch.from_numpy(H).to(device)).cpu().numpy()
+        acc.update(z, vel, pre)
+        total_rows += z.shape[0]
+        del H, z
+        print(f"  traj {tid:04d}: {len(snaps)} snaps accumulated")
 
-    Z_flat   = np.concatenate(Z_all,    axis=0)
-    vel_flat = np.concatenate(vel_all,  axis=0)
-    pres_flat= np.concatenate(pres_all, axis=0)
-    print(f"total: {Z_flat.shape[0]} node-steps, {Z_flat.shape[1]} features")
-
-    # ── correlations ──────────────────────────────────────────────────────────
+    print(f"total: {total_rows} node-steps, {sae.d_hid} features")
     print("computing correlations ...")
-    corr = compute_correlations(Z_flat, vel_flat, pres_flat)
+    corr = acc.finalize()
     save_csv(corr, os.path.join(args.out_dir, "features_correlation.csv"))
 
     top_dims = np.argsort(corr["r_abs_max"])[::-1][:args.topn].tolist()
@@ -348,7 +377,7 @@ def main():
     )
 
     fig_scatter(
-        Z_flat, vel_flat, pres_flat, top_dims, corr,
+        plot_snaps, sae, device, top_dims, corr,
         os.path.join(args.out_dir, "top_features_scatter.png"),
     )
 
