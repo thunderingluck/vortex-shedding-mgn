@@ -52,3 +52,5 @@ hydra/
 !sae_interp/checkpoints_rand_3e-4_long/*.pt
 !sae_interp/checkpoints_rand_3e-4_long/*.csv
 !sae_interp/checkpoints_rand_3e-4_long/*.png
+!sae_interp/figures/global_dims/
+!sae_interp/figures/*.png
