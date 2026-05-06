@@ -15,7 +15,8 @@ checkpoints/
 *.pth
 sae_interp/checkpoints_rand_*/
 sae_interp/checkpoints_topk_K*/
-sae_interp/figures
+sae_interp/figures/*
+!sae_interp/figures/
 
 
 # ==== sbatch scripts ====
@@ -54,3 +55,4 @@ hydra/
 !sae_interp/checkpoints_rand_3e-4_long/*.png
 !sae_interp/figures/global_dims/
 !sae_interp/figures/*.png
+!sae_interp/figures/global_dims/*.png

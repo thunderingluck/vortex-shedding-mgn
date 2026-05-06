@@ -1,0 +1,3 @@
+avg_pairwise_spearman_r = 0.881350
+n_trajectories = 100
+metric = mean_abs
