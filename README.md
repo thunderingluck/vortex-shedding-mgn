@@ -1,11 +1,38 @@
 # Interpreting MeshGraphNets with Sparse Autoencoders
 
-ML-based surrogates such as MeshGraphNets offer a practical alternative to CFD solvers, but their latent representations are opaque and hinder adoption in safety-critical settings. Here, I am replicating [Interpreting CFD Surrogates through Sparse Autoencoders](https://arxiv.org/abs/2507.16069), training a sparse autoencoder on frozen MGN node embeddings, and extending their analysis. Currently working on labelling the SAE's learned features
+ML-based surrogates such as MeshGraphNets offer a practical alternative to CFD solvers, but their latent representations are opaque and hinder adoption in safety-critical settings. Here, I am replicating [Interpreting CFD Surrogates through Sparse Autoencoders](https://arxiv.org/abs/2507.16069), training a sparse autoencoder on frozen MGN node embeddings, and extending their analysis.
 
-See [sae_interp/RESULTS.md](sae_interp/RESULTS.md) for training runs, metrics, and feature analysis findings.
+**Full write-up:** [`sae_interp/RESULTS.md`](sae_interp/RESULTS.md) — hyperparameter sweep, L1 vs. Top-K vs. Top-K+aux comparison, feature analysis, open questions.
 
-This repository contains modifications to the NVIDIA PhysicsNeMo
-`vortex_shedding_mgn` example.
+This repository contains modifications to the NVIDIA PhysicsNeMo `vortex_shedding_mgn` example. The interpretability work lives entirely under [`sae_interp/`](sae_interp/).
+
+## Highlights
+
+**Sparsity–reconstruction Pareto (L1 vs. Top-K vs. Top-K + auxiliary dead-feature loss):**
+
+![Pareto: L0 vs. val MSE](sae_interp/figures/pareto_l0_vs_mse.png)
+
+**Per-dimension activation maps for the top globally-ranked SAE features (fig-3 style):**
+
+![Individual dims](sae_interp/figures/fig3_individual_dims.png)
+
+**Spatial structure of top physically-correlated features:**
+
+![Top features spatial](sae_interp/figures/phys_analysis/top_features_spatial.png)
+
+## Repository layout
+
+- [`sae_interp/`](sae_interp/) — SAE training + interpretability code (this is the main contribution)
+  - [`RESULTS.md`](sae_interp/RESULTS.md) — headline results
+  - `train_sae_rand.py`, `train_sae_topk.py`, `sae.py`, `sae_topk.py` — SAE models and training loops
+  - `analyze_features.py`, `top_activating_inputs.py`, `vorticity_alignment.py`, `global_dim_analysis.py`, `plot_pareto.py` — feature analysis
+  - `checkpoints_{rand,topk,topk_aux}_*/` — trained SAE weights, metrics, and training curves for every hyperparameter setting in the sweep
+  - `figures/` — all published figures + per-directory READMEs
+    - `figures/multi_traj/` — per-feature activations across multiple test trajectories
+    - `figures/phys_analysis/` — Pearson correlations with physical fields (u, v, p, speed, vorticity)
+    - `figures/global_dims/` — globally top-ranked dictionary atoms
+  - `train_sae_*.sh`, `vorticity_alignment.sh`, etc. — SLURM submission scripts used to produce every checkpoint above
+- Root-level `train.py`, `inference.py`, `run_sae_pipeline.py` — the underlying MGN training/inference pipeline (mostly upstream NVIDIA code, lightly modified)
 
 ## Upstream Dependency
 

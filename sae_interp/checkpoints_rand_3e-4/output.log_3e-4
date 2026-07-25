@@ -1,0 +1,227 @@
+Device: cuda
+Trajectories total=100, train=80, val=20
+Loading training data...
+  train: 80 files, 90,026,106 nodes
+Loading validation data...
+  val: 20 files, 22,194,747 nodes
+  Normalized: mean=0.0164  std=2.1321 (per-dim, training set)
+
+Starting training: batch_size=128, val_every=10000 steps, patience=8 evals
+
+[step   10000 | ep 1] train_loss=1.3759e-01  train_recon=5.9091e-02  train_L1=2.6168e+02  val_loss=7.0782e-04  val_mse=6.2588e-04  val_L0=672.9  dead=0.000
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=7.0782e-04)
+[step   20000 | ep 1] train_loss=1.0124e-01  train_recon=3.1022e-02  train_L1=2.3405e+02  val_loss=4.0649e-04  val_mse=3.3208e-04  val_L0=676.1  dead=0.000
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=4.0649e-04)
+[step   30000 | ep 1] train_loss=8.2977e-02  train_recon=1.7575e-02  train_L1=2.1801e+02  val_loss=2.5315e-04  val_mse=1.8365e-04  val_L0=676.2  dead=0.000
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=2.5315e-04)
+[step   40000 | ep 1] train_loss=7.9003e-02  train_recon=1.6218e-02  train_L1=2.0929e+02  val_loss=2.3996e-04  val_mse=1.7351e-04  val_L0=676.4  dead=0.000
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=2.3996e-04)
+[step   50000 | ep 1] train_loss=7.4784e-02  train_recon=1.4106e-02  train_L1=2.0226e+02  val_loss=2.0794e-04  val_mse=1.4339e-04  val_L0=676.1  dead=0.000
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=2.0794e-04)
+[step   60000 | ep 1] train_loss=7.2872e-02  train_recon=1.3184e-02  train_L1=1.9896e+02  val_loss=2.0404e-04  val_mse=1.4082e-04  val_L0=676.0  dead=0.000
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=2.0404e-04)
+[step   70000 | ep 1] train_loss=7.1155e-02  train_recon=1.2538e-02  train_L1=1.9539e+02  val_loss=2.0210e-04  val_mse=1.4000e-04  val_L0=675.7  dead=0.000
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=2.0210e-04)
+[step   80000 | ep 1] train_loss=7.0931e-02  train_recon=1.3078e-02  train_L1=1.9284e+02  val_loss=1.9383e-04  val_mse=1.3278e-04  val_L0=675.4  dead=0.000
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.9383e-04)
+[step   90000 | ep 1] train_loss=6.9239e-02  train_recon=1.2291e-02  train_L1=1.8983e+02  val_loss=1.9038e-04  val_mse=1.3003e-04  val_L0=675.1  dead=0.002
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.9038e-04)
+[step  100000 | ep 1] train_loss=6.8010e-02  train_recon=1.2170e-02  train_L1=1.8613e+02  val_loss=1.9036e-04  val_mse=1.3094e-04  val_L0=674.5  dead=0.003
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.9036e-04)
+[step  110000 | ep 1] train_loss=6.6204e-02  train_recon=1.0941e-02  train_L1=1.8421e+02  val_loss=1.8644e-04  val_mse=1.2761e-04  val_L0=674.4  dead=0.002
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.8644e-04)
+[step  120000 | ep 1] train_loss=6.4981e-02  train_recon=1.0716e-02  train_L1=1.8089e+02  val_loss=1.7585e-04  val_mse=1.1797e-04  val_L0=674.1  dead=0.004
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.7585e-04)
+[step  130000 | ep 1] train_loss=6.3951e-02  train_recon=1.0701e-02  train_L1=1.7750e+02  val_loss=1.7238e-04  val_mse=1.1531e-04  val_L0=674.1  dead=0.006
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.7238e-04)
+[step  140000 | ep 1] train_loss=6.2832e-02  train_recon=9.9091e-03  train_L1=1.7641e+02  val_loss=1.6687e-04  val_mse=1.1075e-04  val_L0=673.7  dead=0.008
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.6687e-04)
+[step  150000 | ep 1] train_loss=6.2133e-02  train_recon=1.0017e-02  train_L1=1.7372e+02  val_loss=1.7158e-04  val_mse=1.1616e-04  val_L0=673.7  dead=0.008
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  160000 | ep 1] train_loss=6.1626e-02  train_recon=1.0209e-02  train_L1=1.7139e+02  val_loss=1.7000e-04  val_mse=1.1530e-04  val_L0=673.5  dead=0.009
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (2/8)
+[step  170000 | ep 1] train_loss=6.1297e-02  train_recon=1.0247e-02  train_L1=1.7017e+02  val_loss=1.6505e-04  val_mse=1.1105e-04  val_L0=673.4  dead=0.009
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.6505e-04)
+[step  180000 | ep 1] train_loss=6.0115e-02  train_recon=9.8788e-03  train_L1=1.6745e+02  val_loss=1.7023e-04  val_mse=1.1710e-04  val_L0=673.3  dead=0.013
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  190000 | ep 1] train_loss=5.8954e-02  train_recon=9.5055e-03  train_L1=1.6483e+02  val_loss=1.6200e-04  val_mse=1.0958e-04  val_L0=673.3  dead=0.012
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.6200e-04)
+[step  200000 | ep 1] train_loss=5.8269e-02  train_recon=9.4780e-03  train_L1=1.6264e+02  val_loss=1.5432e-04  val_mse=1.0261e-04  val_L0=673.3  dead=0.013
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.5432e-04)
+[step  210000 | ep 1] train_loss=5.7505e-02  train_recon=9.5560e-03  train_L1=1.5983e+02  val_loss=1.4948e-04  val_mse=9.8635e-05  val_L0=673.1  dead=0.010
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.4948e-04)
+[step  220000 | ep 1] train_loss=5.6753e-02  train_recon=9.1690e-03  train_L1=1.5861e+02  val_loss=1.5967e-04  val_mse=1.0960e-04  val_L0=673.0  dead=0.012
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  230000 | ep 1] train_loss=5.5735e-02  train_recon=9.0524e-03  train_L1=1.5561e+02  val_loss=1.4957e-04  val_mse=1.0036e-04  val_L0=672.8  dead=0.014
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (2/8)
+[step  240000 | ep 1] train_loss=5.4449e-02  train_recon=8.7736e-03  train_L1=1.5225e+02  val_loss=1.5349e-04  val_mse=1.0505e-04  val_L0=672.7  dead=0.013
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (3/8)
+[step  250000 | ep 1] train_loss=5.3468e-02  train_recon=8.5742e-03  train_L1=1.4965e+02  val_loss=1.4343e-04  val_mse=9.5779e-05  val_L0=672.7  dead=0.012
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.4343e-04)
+[step  260000 | ep 1] train_loss=5.3572e-02  train_recon=8.9430e-03  train_L1=1.4876e+02  val_loss=1.4931e-04  val_mse=1.0242e-04  val_L0=672.5  dead=0.016
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  270000 | ep 1] train_loss=5.1603e-02  train_recon=8.3448e-03  train_L1=1.4420e+02  val_loss=1.4090e-04  val_mse=9.4828e-05  val_L0=672.3  dead=0.015
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.4090e-04)
+[step  280000 | ep 1] train_loss=5.1781e-02  train_recon=8.7669e-03  train_L1=1.4338e+02  val_loss=1.4052e-04  val_mse=9.5269e-05  val_L0=672.0  dead=0.016
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.4052e-04)
+[step  290000 | ep 1] train_loss=5.0135e-02  train_recon=8.0433e-03  train_L1=1.4030e+02  val_loss=1.4255e-04  val_mse=9.7995e-05  val_L0=671.8  dead=0.015
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  300000 | ep 1] train_loss=5.0165e-02  train_recon=8.3211e-03  train_L1=1.3948e+02  val_loss=1.3429e-04  val_mse=9.0391e-05  val_L0=671.6  dead=0.014
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.3429e-04)
+[step  310000 | ep 1] train_loss=4.8693e-02  train_recon=7.8406e-03  train_L1=1.3617e+02  val_loss=1.3977e-04  val_mse=9.6550e-05  val_L0=671.4  dead=0.014
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  320000 | ep 1] train_loss=4.7837e-02  train_recon=7.4035e-03  train_L1=1.3478e+02  val_loss=1.3235e-04  val_mse=8.9708e-05  val_L0=671.5  dead=0.013
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.3235e-04)
+[step  330000 | ep 1] train_loss=4.8120e-02  train_recon=8.1450e-03  train_L1=1.3325e+02  val_loss=1.3081e-04  val_mse=8.8686e-05  val_L0=671.3  dead=0.011
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.3081e-04)
+[step  340000 | ep 1] train_loss=4.6871e-02  train_recon=7.5668e-03  train_L1=1.3101e+02  val_loss=1.3505e-04  val_mse=9.3526e-05  val_L0=671.0  dead=0.014
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  350000 | ep 1] train_loss=4.7000e-02  train_recon=7.8389e-03  train_L1=1.3054e+02  val_loss=1.2670e-04  val_mse=8.5737e-05  val_L0=670.7  dead=0.014
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.2670e-04)
+[step  360000 | ep 1] train_loss=4.5647e-02  train_recon=7.5990e-03  train_L1=1.2683e+02  val_loss=1.2403e-04  val_mse=8.3568e-05  val_L0=670.2  dead=0.013
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.2403e-04)
+[step  370000 | ep 1] train_loss=4.5776e-02  train_recon=7.9570e-03  train_L1=1.2606e+02  val_loss=1.2681e-04  val_mse=8.6791e-05  val_L0=669.9  dead=0.013
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  380000 | ep 1] train_loss=4.5174e-02  train_recon=7.5567e-03  train_L1=1.2539e+02  val_loss=1.1780e-04  val_mse=7.8173e-05  val_L0=669.8  dead=0.014
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.1780e-04)
+[step  390000 | ep 1] train_loss=4.4506e-02  train_recon=7.5591e-03  train_L1=1.2316e+02  val_loss=1.2323e-04  val_mse=8.3991e-05  val_L0=669.6  dead=0.016
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  400000 | ep 1] train_loss=4.3526e-02  train_recon=6.9125e-03  train_L1=1.2205e+02  val_loss=1.1612e-04  val_mse=7.7295e-05  val_L0=669.5  dead=0.015
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.1612e-04)
+[step  410000 | ep 1] train_loss=4.2702e-02  train_recon=6.6069e-03  train_L1=1.2032e+02  val_loss=1.1578e-04  val_mse=7.7379e-05  val_L0=669.5  dead=0.017
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.1578e-04)
+[step  420000 | ep 1] train_loss=4.2829e-02  train_recon=6.9143e-03  train_L1=1.1972e+02  val_loss=1.2046e-04  val_mse=8.2447e-05  val_L0=669.1  dead=0.017
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  430000 | ep 1] train_loss=4.2613e-02  train_recon=6.8350e-03  train_L1=1.1926e+02  val_loss=1.1414e-04  val_mse=7.6435e-05  val_L0=669.0  dead=0.018
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.1414e-04)
+[step  440000 | ep 1] train_loss=4.2408e-02  train_recon=7.0881e-03  train_L1=1.1773e+02  val_loss=1.1203e-04  val_mse=7.4592e-05  val_L0=669.0  dead=0.018
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.1203e-04)
+[step  450000 | ep 1] train_loss=4.2005e-02  train_recon=6.8881e-03  train_L1=1.1706e+02  val_loss=1.0951e-04  val_mse=7.2384e-05  val_L0=668.6  dead=0.017
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.0951e-04)
+[step  460000 | ep 1] train_loss=4.1692e-02  train_recon=6.7916e-03  train_L1=1.1634e+02  val_loss=1.0989e-04  val_mse=7.3055e-05  val_L0=668.6  dead=0.018
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  470000 | ep 1] train_loss=4.1522e-02  train_recon=6.9988e-03  train_L1=1.1508e+02  val_loss=1.1846e-04  val_mse=8.1864e-05  val_L0=668.2  dead=0.017
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (2/8)
+[step  480000 | ep 1] train_loss=4.1211e-02  train_recon=6.7281e-03  train_L1=1.1494e+02  val_loss=1.0705e-04  val_mse=7.0728e-05  val_L0=668.0  dead=0.016
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.0705e-04)
+[step  490000 | ep 1] train_loss=4.0656e-02  train_recon=6.6025e-03  train_L1=1.1351e+02  val_loss=1.1481e-04  val_mse=7.8804e-05  val_L0=667.9  dead=0.017
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  500000 | ep 1] train_loss=4.1067e-02  train_recon=7.1535e-03  train_L1=1.1305e+02  val_loss=1.1208e-04  val_mse=7.6295e-05  val_L0=666.9  dead=0.018
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (2/8)
+[step  510000 | ep 1] train_loss=4.0907e-02  train_recon=7.1950e-03  train_L1=1.1237e+02  val_loss=1.0710e-04  val_mse=7.1516e-05  val_L0=666.8  dead=0.018
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (3/8)
+[step  520000 | ep 1] train_loss=4.0443e-02  train_recon=6.7810e-03  train_L1=1.1221e+02  val_loss=1.0747e-04  val_mse=7.2115e-05  val_L0=666.8  dead=0.017
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (4/8)
+[step  530000 | ep 1] train_loss=4.0343e-02  train_recon=7.0144e-03  train_L1=1.1110e+02  val_loss=1.1790e-04  val_mse=8.2762e-05  val_L0=665.6  dead=0.017
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (5/8)
+[step  540000 | ep 1] train_loss=3.9830e-02  train_recon=6.7012e-03  train_L1=1.1043e+02  val_loss=1.0679e-04  val_mse=7.1850e-05  val_L0=664.8  dead=0.018
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.0679e-04)
+[step  550000 | ep 1] train_loss=3.9589e-02  train_recon=6.5775e-03  train_L1=1.1004e+02  val_loss=1.0597e-04  val_mse=7.1187e-05  val_L0=664.6  dead=0.019
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.0597e-04)
+[step  560000 | ep 1] train_loss=3.9355e-02  train_recon=6.3679e-03  train_L1=1.0996e+02  val_loss=1.0374e-04  val_mse=6.9202e-05  val_L0=664.4  dead=0.020
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.0374e-04)
+[step  570000 | ep 1] train_loss=3.8840e-02  train_recon=6.4497e-03  train_L1=1.0797e+02  val_loss=1.0641e-04  val_mse=7.2119e-05  val_L0=664.2  dead=0.019
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  580000 | ep 1] train_loss=3.8919e-02  train_recon=6.7682e-03  train_L1=1.0717e+02  val_loss=1.0387e-04  val_mse=6.9791e-05  val_L0=664.1  dead=0.017
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (2/8)
+[step  590000 | ep 1] train_loss=3.8454e-02  train_recon=6.4539e-03  train_L1=1.0667e+02  val_loss=1.0273e-04  val_mse=6.8851e-05  val_L0=664.1  dead=0.020
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=1.0273e-04)
+[step  600000 | ep 1] train_loss=3.8636e-02  train_recon=6.9096e-03  train_L1=1.0575e+02  val_loss=1.0537e-04  val_mse=7.1710e-05  val_L0=663.4  dead=0.019
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  610000 | ep 1] train_loss=3.7381e-02  train_recon=6.0051e-03  train_L1=1.0459e+02  val_loss=1.0714e-04  val_mse=7.3601e-05  val_L0=663.1  dead=0.021
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (2/8)
+[step  620000 | ep 1] train_loss=3.8367e-02  train_recon=6.7556e-03  train_L1=1.0537e+02  val_loss=1.0505e-04  val_mse=7.1706e-05  val_L0=659.9  dead=0.023
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (3/8)
+[step  630000 | ep 1] train_loss=3.7769e-02  train_recon=6.0022e-03  train_L1=1.0589e+02  val_loss=9.4057e-05  val_mse=6.0874e-05  val_L0=660.1  dead=0.020
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> saved best checkpoint (val_loss=9.4057e-05)
+[step  640000 | ep 1] train_loss=3.7349e-02  train_recon=6.1686e-03  train_L1=1.0393e+02  val_loss=9.9459e-05  val_mse=6.6393e-05  val_L0=659.6  dead=0.021
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (1/8)
+[step  650000 | ep 1] train_loss=3.7185e-02  train_recon=6.3289e-03  train_L1=1.0285e+02  val_loss=1.0010e-04  val_mse=6.7174e-05  val_L0=659.4  dead=0.023
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (2/8)
+[step  660000 | ep 1] train_loss=3.7868e-02  train_recon=6.6451e-03  train_L1=1.0408e+02  val_loss=9.4656e-05  val_mse=6.1933e-05  val_L0=658.3  dead=0.023
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (3/8)
+[step  670000 | ep 1] train_loss=3.7102e-02  train_recon=6.2078e-03  train_L1=1.0298e+02  val_loss=1.0480e-04  val_mse=7.2216e-05  val_L0=658.0  dead=0.023
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (4/8)
+[step  680000 | ep 1] train_loss=3.6604e-02  train_recon=6.1003e-03  train_L1=1.0168e+02  val_loss=9.4831e-05  val_mse=6.2364e-05  val_L0=655.9  dead=0.025
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (5/8)
+[step  690000 | ep 1] train_loss=3.6982e-02  train_recon=6.3470e-03  train_L1=1.0212e+02  val_loss=1.0471e-04  val_mse=7.2364e-05  val_L0=655.1  dead=0.027
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (6/8)
+[step  700000 | ep 1] train_loss=3.6867e-02  train_recon=6.3228e-03  train_L1=1.0181e+02  val_loss=1.0495e-04  val_mse=7.2737e-05  val_L0=654.8  dead=0.028
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (7/8)
+Epoch 1 done  (step=703329)
+[step  710000 | ep 2] train_loss=3.6777e-02  train_recon=6.3784e-03  train_L1=1.0133e+02  val_loss=9.7417e-05  val_mse=6.5304e-05  val_L0=654.0  dead=0.026
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png
+  -> no improvement (8/8)
+
+Early stopping triggered.
+  -> saved training curves to checkpoints_rand_3e-4/training_curves.png

@@ -1,0 +1,136 @@
+device: cuda
+loaded SAE  d_in=128  d_hid=1024
+found 100 trajectories
+
+[pass 1] streaming all trajectories (metric=mean_abs) ...
+  traj 0000: 599 steps
+  traj 0001: 599 steps
+  traj 0002: 599 steps
+  traj 0003: 599 steps
+  traj 0004: 599 steps
+  traj 0005: 599 steps
+  traj 0006: 599 steps
+  traj 0007: 599 steps
+  traj 0008: 599 steps
+  traj 0009: 599 steps
+  traj 0010: 599 steps
+  traj 0011: 599 steps
+  traj 0012: 599 steps
+  traj 0013: 599 steps
+  traj 0014: 599 steps
+  traj 0015: 599 steps
+  traj 0016: 599 steps
+  traj 0017: 599 steps
+  traj 0018: 599 steps
+  traj 0019: 599 steps
+  traj 0020: 599 steps
+  traj 0021: 599 steps
+  traj 0022: 599 steps
+  traj 0023: 599 steps
+  traj 0024: 599 steps
+  traj 0025: 599 steps
+  traj 0026: 599 steps
+  traj 0027: 599 steps
+  traj 0028: 599 steps
+  traj 0029: 599 steps
+  traj 0030: 599 steps
+  traj 0031: 599 steps
+  traj 0032: 599 steps
+  traj 0033: 599 steps
+  traj 0034: 599 steps
+  traj 0035: 599 steps
+  traj 0036: 599 steps
+  traj 0037: 599 steps
+  traj 0038: 599 steps
+  traj 0039: 599 steps
+  traj 0040: 599 steps
+  traj 0041: 599 steps
+  traj 0042: 599 steps
+  traj 0043: 599 steps
+  traj 0044: 599 steps
+  traj 0045: 599 steps
+  traj 0046: 599 steps
+  traj 0047: 599 steps
+  traj 0048: 599 steps
+  traj 0049: 599 steps
+  traj 0050: 599 steps
+  traj 0051: 599 steps
+  traj 0052: 599 steps
+  traj 0053: 599 steps
+  traj 0054: 599 steps
+  traj 0055: 599 steps
+  traj 0056: 599 steps
+  traj 0057: 599 steps
+  traj 0058: 599 steps
+  traj 0059: 599 steps
+  traj 0060: 599 steps
+  traj 0061: 599 steps
+  traj 0062: 599 steps
+  traj 0063: 599 steps
+  traj 0064: 599 steps
+  traj 0065: 599 steps
+  traj 0066: 599 steps
+  traj 0067: 599 steps
+  traj 0068: 599 steps
+  traj 0069: 599 steps
+  traj 0070: 599 steps
+  traj 0071: 599 steps
+  traj 0072: 599 steps
+  traj 0073: 599 steps
+  traj 0074: 599 steps
+  traj 0075: 599 steps
+  traj 0076: 599 steps
+  traj 0077: 599 steps
+  traj 0078: 599 steps
+  traj 0079: 599 steps
+  traj 0080: 599 steps
+  traj 0081: 599 steps
+  traj 0082: 599 steps
+  traj 0083: 599 steps
+  traj 0084: 599 steps
+  traj 0085: 599 steps
+  traj 0086: 599 steps
+  traj 0087: 599 steps
+  traj 0088: 599 steps
+  traj 0089: 599 steps
+  traj 0090: 599 steps
+  traj 0091: 599 steps
+  traj 0092: 599 steps
+  traj 0093: 599 steps
+  traj 0094: 599 steps
+  traj 0095: 599 steps
+  traj 0096: 599 steps
+  traj 0097: 599 steps
+  traj 0098: 599 steps
+  traj 0099: 599 steps
+
+Global top-5 dims: [359, 650, 102, 239, 120]
+  scores: [2.20422326 2.12266683 2.06946012 2.02786239 2.01291684]
+
+── Rank stability of global top dims ───────────────────────────────
+   dim   mean_rank   std_rank      0000      0001      0002      0003      0004      0005      0006      0007      0008      0009      0010      0011      0012      0013      0014      0015      0016      0017      0018      0019
+   359         5.4        3.2        10         6         6         1         4         2         9        11        11         4         3         2        14        12         4         3         4         1         4         7
+   650         7.8        9.3        32         8        10         2         5         1        32         5         3         2         6         1        21        38         3         2         9         4         1         1
+   102         8.6        9.5        30         7         7         3        12         3        26         6         5         3         4         3        43        40         2         1        13         2         2         2
+   239        39.6      102.6         3         3         2        31         1         5         7       206       227         1         1        14         5         9         1         4         2        11         3         6
+   120        71.2      161.0         2         5         4        43         2        10         2       654       328         5         2         5         2         3         7        28         1         5        27        26
+
+Average pairwise Spearman r (all dims, all traj pairs): 0.8814
+────────────────────────────────────────────────────────────────────
+
+
+[pass 2] loading 4 plot trajectories: ['0000', '0025', '0050', '0075']
+  traj 0000: loaded 4 steps
+  traj 0025: loaded 4 steps
+  traj 0050: loaded 4 steps
+  traj 0075: loaded 4 steps
+
+[figs] generating per-dimension figures ...
+[fig] dim 359 -> ./figures/global_dims/dim_0359.png
+[fig] dim 650 -> ./figures/global_dims/dim_0650.png
+[fig] dim 102 -> ./figures/global_dims/dim_0102.png
+[fig] dim 239 -> ./figures/global_dims/dim_0239.png
+[fig] dim 120 -> ./figures/global_dims/dim_0120.png
+[fig] rank summary -> ./figures/global_dims/rank_summary.png
+
+done.

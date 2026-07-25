@@ -1,0 +1,1240 @@
+Starting fresh training with K=48 + auxiliary dead-feature loss
+Device: cuda  |  K=48  |  ckpt_dir=checkpoints_topk_aux_K48
+Trajectories total=100, train=80, val=20
+Loading training data...
+  train: 80 files, 90,026,106 nodes
+Loading validation data...
+  val: 20 files, 22,194,747 nodes
+  Normalized: mean=0.0164  std=2.1321
+
+Starting training: K=48, batch_size=128, val_every=10000, patience=8
+
+[step   10000 | ep 1] train_mse=7.1363e-02  val_mse=8.8574e-02  val_L0=48.0  dead=0.000  n_dead=1  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=8.8574e-02)
+[step   20000 | ep 1] train_mse=5.6900e-02  val_mse=7.2941e-02  val_L0=48.0  dead=0.000  n_dead=1  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=7.2941e-02)
+[step   30000 | ep 1] train_mse=5.1931e-02  val_mse=6.7010e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=6.7010e-02)
+[step   40000 | ep 1] train_mse=4.9593e-02  val_mse=6.3907e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=6.3907e-02)
+[step   50000 | ep 1] train_mse=4.7284e-02  val_mse=6.1785e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=6.1785e-02)
+[step   60000 | ep 1] train_mse=4.5921e-02  val_mse=6.0271e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=6.0271e-02)
+[step   70000 | ep 1] train_mse=4.4513e-02  val_mse=5.8946e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.8946e-02)
+[step   80000 | ep 1] train_mse=4.4516e-02  val_mse=5.7737e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.7737e-02)
+[step   90000 | ep 1] train_mse=4.2837e-02  val_mse=5.6602e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.6602e-02)
+[step  100000 | ep 1] train_mse=4.1569e-02  val_mse=5.5645e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.5645e-02)
+[step  110000 | ep 1] train_mse=4.1274e-02  val_mse=5.4664e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.4664e-02)
+[step  120000 | ep 1] train_mse=4.0359e-02  val_mse=5.3770e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.3770e-02)
+[step  130000 | ep 1] train_mse=3.8883e-02  val_mse=5.2905e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.2905e-02)
+[step  140000 | ep 1] train_mse=3.9060e-02  val_mse=5.2126e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.2126e-02)
+[step  150000 | ep 1] train_mse=3.8375e-02  val_mse=5.1338e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.1338e-02)
+[step  160000 | ep 1] train_mse=3.7905e-02  val_mse=5.0572e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=5.0572e-02)
+[step  170000 | ep 1] train_mse=3.7439e-02  val_mse=4.9862e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.9862e-02)
+[step  180000 | ep 1] train_mse=3.6989e-02  val_mse=4.9184e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.9184e-02)
+[step  190000 | ep 1] train_mse=3.6839e-02  val_mse=4.8600e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.8600e-02)
+[step  200000 | ep 1] train_mse=3.6160e-02  val_mse=4.8046e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.8046e-02)
+[step  210000 | ep 1] train_mse=3.5640e-02  val_mse=4.7506e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.7506e-02)
+[step  220000 | ep 1] train_mse=3.5864e-02  val_mse=4.7014e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.7014e-02)
+[step  230000 | ep 1] train_mse=3.5082e-02  val_mse=4.6540e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.6540e-02)
+[step  240000 | ep 1] train_mse=3.4508e-02  val_mse=4.6123e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.6123e-02)
+[step  250000 | ep 1] train_mse=3.4209e-02  val_mse=4.5733e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.5733e-02)
+[step  260000 | ep 1] train_mse=3.4246e-02  val_mse=4.5357e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.5357e-02)
+[step  270000 | ep 1] train_mse=3.3428e-02  val_mse=4.5033e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.5033e-02)
+[step  280000 | ep 1] train_mse=3.3935e-02  val_mse=4.4688e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.4688e-02)
+[step  290000 | ep 1] train_mse=3.3354e-02  val_mse=4.4388e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.4388e-02)
+[step  300000 | ep 1] train_mse=3.3674e-02  val_mse=4.4073e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.4073e-02)
+[step  310000 | ep 1] train_mse=3.3069e-02  val_mse=4.3821e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.3821e-02)
+[step  320000 | ep 1] train_mse=3.3064e-02  val_mse=4.3539e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.3539e-02)
+[step  330000 | ep 1] train_mse=3.3125e-02  val_mse=4.3310e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.3310e-02)
+[step  340000 | ep 1] train_mse=3.2362e-02  val_mse=4.3091e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.3091e-02)
+[step  350000 | ep 1] train_mse=3.2800e-02  val_mse=4.2879e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.2879e-02)
+[step  360000 | ep 1] train_mse=3.1748e-02  val_mse=4.2672e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.2672e-02)
+[step  370000 | ep 1] train_mse=3.1993e-02  val_mse=4.2471e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.2471e-02)
+[step  380000 | ep 1] train_mse=3.2018e-02  val_mse=4.2292e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.2292e-02)
+[step  390000 | ep 1] train_mse=3.1573e-02  val_mse=4.2114e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.2114e-02)
+[step  400000 | ep 1] train_mse=3.1447e-02  val_mse=4.1893e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.1893e-02)
+[step  410000 | ep 1] train_mse=3.0843e-02  val_mse=4.1675e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.1675e-02)
+[step  420000 | ep 1] train_mse=3.1111e-02  val_mse=4.1478e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.1478e-02)
+[step  430000 | ep 1] train_mse=3.1236e-02  val_mse=4.1344e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.1344e-02)
+[step  440000 | ep 1] train_mse=3.0623e-02  val_mse=4.1200e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.1200e-02)
+[step  450000 | ep 1] train_mse=3.0846e-02  val_mse=4.1000e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.1000e-02)
+[step  460000 | ep 1] train_mse=3.0700e-02  val_mse=4.0854e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.0854e-02)
+[step  470000 | ep 1] train_mse=3.0507e-02  val_mse=4.0716e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.0716e-02)
+[step  480000 | ep 1] train_mse=3.0770e-02  val_mse=4.0481e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.0481e-02)
+[step  490000 | ep 1] train_mse=3.0096e-02  val_mse=4.0348e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.0348e-02)
+[step  500000 | ep 1] train_mse=3.0441e-02  val_mse=4.0174e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.0174e-02)
+[step  510000 | ep 1] train_mse=3.0326e-02  val_mse=4.0064e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=4.0064e-02)
+[step  520000 | ep 1] train_mse=3.0477e-02  val_mse=3.9913e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.9913e-02)
+[step  530000 | ep 1] train_mse=3.0303e-02  val_mse=3.9810e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.9810e-02)
+[step  540000 | ep 1] train_mse=2.9477e-02  val_mse=3.9665e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.9665e-02)
+[step  550000 | ep 1] train_mse=3.0041e-02  val_mse=3.9579e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.9579e-02)
+[step  560000 | ep 1] train_mse=3.0003e-02  val_mse=3.9450e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.9450e-02)
+[step  570000 | ep 1] train_mse=2.9292e-02  val_mse=3.9354e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.9354e-02)
+[step  580000 | ep 1] train_mse=2.9422e-02  val_mse=3.9240e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.9240e-02)
+[step  590000 | ep 1] train_mse=2.9364e-02  val_mse=3.9167e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.9167e-02)
+[step  600000 | ep 1] train_mse=2.9181e-02  val_mse=3.9108e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.9108e-02)
+[step  610000 | ep 1] train_mse=2.8682e-02  val_mse=3.8976e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8976e-02)
+[step  620000 | ep 1] train_mse=2.9437e-02  val_mse=3.8886e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8886e-02)
+[step  630000 | ep 1] train_mse=2.9737e-02  val_mse=3.8811e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8811e-02)
+[step  640000 | ep 1] train_mse=2.8879e-02  val_mse=3.8731e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8731e-02)
+[step  650000 | ep 1] train_mse=2.8553e-02  val_mse=3.8645e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8645e-02)
+[step  660000 | ep 1] train_mse=2.9614e-02  val_mse=3.8538e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8538e-02)
+[step  670000 | ep 1] train_mse=2.9021e-02  val_mse=3.8476e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8476e-02)
+[step  680000 | ep 1] train_mse=2.8548e-02  val_mse=3.8410e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8410e-02)
+[step  690000 | ep 1] train_mse=2.8784e-02  val_mse=3.8288e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8288e-02)
+[step  700000 | ep 1] train_mse=2.8667e-02  val_mse=3.8226e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8226e-02)
+Epoch 1 done  (step=703329)
+[step  710000 | ep 2] train_mse=2.8789e-02  val_mse=3.8168e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8168e-02)
+[step  720000 | ep 2] train_mse=2.8627e-02  val_mse=3.8106e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8106e-02)
+[step  730000 | ep 2] train_mse=2.8314e-02  val_mse=3.8053e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8053e-02)
+[step  740000 | ep 2] train_mse=2.8500e-02  val_mse=3.8012e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.8012e-02)
+[step  750000 | ep 2] train_mse=2.9051e-02  val_mse=3.7920e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7920e-02)
+[step  760000 | ep 2] train_mse=2.8267e-02  val_mse=3.7888e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7888e-02)
+[step  770000 | ep 2] train_mse=2.8357e-02  val_mse=3.7851e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7851e-02)
+[step  780000 | ep 2] train_mse=2.8442e-02  val_mse=3.7765e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7765e-02)
+[step  790000 | ep 2] train_mse=2.8694e-02  val_mse=3.7742e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7742e-02)
+[step  800000 | ep 2] train_mse=2.8108e-02  val_mse=3.7737e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7737e-02)
+[step  810000 | ep 2] train_mse=2.8485e-02  val_mse=3.7631e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7631e-02)
+[step  820000 | ep 2] train_mse=2.8375e-02  val_mse=3.7589e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7589e-02)
+[step  830000 | ep 2] train_mse=2.8002e-02  val_mse=3.7611e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step  840000 | ep 2] train_mse=2.7499e-02  val_mse=3.7499e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7499e-02)
+[step  850000 | ep 2] train_mse=2.7763e-02  val_mse=3.7471e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7471e-02)
+[step  860000 | ep 2] train_mse=2.7833e-02  val_mse=3.7415e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7415e-02)
+[step  870000 | ep 2] train_mse=2.7813e-02  val_mse=3.7384e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7384e-02)
+[step  880000 | ep 2] train_mse=2.7449e-02  val_mse=3.7342e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7342e-02)
+[step  890000 | ep 2] train_mse=2.8010e-02  val_mse=3.7312e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7312e-02)
+[step  900000 | ep 2] train_mse=2.7447e-02  val_mse=3.7289e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7289e-02)
+[step  910000 | ep 2] train_mse=2.8025e-02  val_mse=3.7258e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7258e-02)
+[step  920000 | ep 2] train_mse=2.8440e-02  val_mse=3.7191e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7191e-02)
+[step  930000 | ep 2] train_mse=2.8086e-02  val_mse=3.7197e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step  940000 | ep 2] train_mse=2.8220e-02  val_mse=3.7159e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7159e-02)
+[step  950000 | ep 2] train_mse=2.7426e-02  val_mse=3.7109e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7109e-02)
+[step  960000 | ep 2] train_mse=2.7216e-02  val_mse=3.7098e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7098e-02)
+[step  970000 | ep 2] train_mse=2.7434e-02  val_mse=3.7050e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7050e-02)
+[step  980000 | ep 2] train_mse=2.7458e-02  val_mse=3.7008e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.7008e-02)
+[step  990000 | ep 2] train_mse=2.7651e-02  val_mse=3.6970e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6970e-02)
+[step 1000000 | ep 2] train_mse=2.7212e-02  val_mse=3.6952e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6952e-02)
+[step 1010000 | ep 2] train_mse=2.7474e-02  val_mse=3.6929e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6929e-02)
+[step 1020000 | ep 2] train_mse=2.7643e-02  val_mse=3.6898e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6898e-02)
+[step 1030000 | ep 2] train_mse=2.7378e-02  val_mse=3.6886e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6886e-02)
+[step 1040000 | ep 2] train_mse=2.7107e-02  val_mse=3.6812e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6812e-02)
+[step 1050000 | ep 2] train_mse=2.7490e-02  val_mse=3.6815e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1060000 | ep 2] train_mse=2.7305e-02  val_mse=3.6787e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6787e-02)
+[step 1070000 | ep 2] train_mse=2.7037e-02  val_mse=3.6736e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6736e-02)
+[step 1080000 | ep 2] train_mse=2.7154e-02  val_mse=3.6691e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6691e-02)
+[step 1090000 | ep 2] train_mse=2.7123e-02  val_mse=3.6669e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6669e-02)
+[step 1100000 | ep 2] train_mse=2.7289e-02  val_mse=3.6684e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1110000 | ep 2] train_mse=2.7460e-02  val_mse=3.6644e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6644e-02)
+[step 1120000 | ep 2] train_mse=2.7255e-02  val_mse=3.6625e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6625e-02)
+[step 1130000 | ep 2] train_mse=2.7168e-02  val_mse=3.6582e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6582e-02)
+[step 1140000 | ep 2] train_mse=2.7348e-02  val_mse=3.6561e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6561e-02)
+[step 1150000 | ep 2] train_mse=2.7224e-02  val_mse=3.6552e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6552e-02)
+[step 1160000 | ep 2] train_mse=2.7270e-02  val_mse=3.6505e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6505e-02)
+[step 1170000 | ep 2] train_mse=2.6863e-02  val_mse=3.6486e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6486e-02)
+[step 1180000 | ep 2] train_mse=2.7164e-02  val_mse=3.6486e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6486e-02)
+[step 1190000 | ep 2] train_mse=2.7763e-02  val_mse=3.6468e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6468e-02)
+[step 1200000 | ep 2] train_mse=2.6990e-02  val_mse=3.6446e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6446e-02)
+[step 1210000 | ep 2] train_mse=2.7249e-02  val_mse=3.6420e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6420e-02)
+[step 1220000 | ep 2] train_mse=2.7207e-02  val_mse=3.6407e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6407e-02)
+[step 1230000 | ep 2] train_mse=2.6406e-02  val_mse=3.6342e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6342e-02)
+[step 1240000 | ep 2] train_mse=2.7080e-02  val_mse=3.6363e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1250000 | ep 2] train_mse=2.6779e-02  val_mse=3.6359e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 1260000 | ep 2] train_mse=2.7073e-02  val_mse=3.6346e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 1270000 | ep 2] train_mse=2.6876e-02  val_mse=3.6306e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6306e-02)
+[step 1280000 | ep 2] train_mse=2.6972e-02  val_mse=3.6271e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6271e-02)
+[step 1290000 | ep 2] train_mse=2.6567e-02  val_mse=3.6266e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6266e-02)
+[step 1300000 | ep 2] train_mse=2.6943e-02  val_mse=3.6263e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6263e-02)
+[step 1310000 | ep 2] train_mse=2.7093e-02  val_mse=3.6215e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6215e-02)
+[step 1320000 | ep 2] train_mse=2.7134e-02  val_mse=3.6195e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6195e-02)
+[step 1330000 | ep 2] train_mse=2.6974e-02  val_mse=3.6182e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6182e-02)
+[step 1340000 | ep 2] train_mse=2.7582e-02  val_mse=3.6195e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1350000 | ep 2] train_mse=2.6645e-02  val_mse=3.6172e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6172e-02)
+[step 1360000 | ep 2] train_mse=2.6924e-02  val_mse=3.6155e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6155e-02)
+[step 1370000 | ep 2] train_mse=2.7133e-02  val_mse=3.6133e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6133e-02)
+[step 1380000 | ep 2] train_mse=2.6927e-02  val_mse=3.6114e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6114e-02)
+[step 1390000 | ep 2] train_mse=2.6450e-02  val_mse=3.6103e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6103e-02)
+[step 1400000 | ep 2] train_mse=2.7056e-02  val_mse=3.6071e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6071e-02)
+Epoch 2 done  (step=1406658)
+[step 1410000 | ep 3] train_mse=2.6605e-02  val_mse=3.6070e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6070e-02)
+[step 1420000 | ep 3] train_mse=2.6894e-02  val_mse=3.6061e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6061e-02)
+[step 1430000 | ep 3] train_mse=2.7226e-02  val_mse=3.6044e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6044e-02)
+[step 1440000 | ep 3] train_mse=2.6981e-02  val_mse=3.6036e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6036e-02)
+[step 1450000 | ep 3] train_mse=2.6729e-02  val_mse=3.6000e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.6000e-02)
+[step 1460000 | ep 3] train_mse=2.6579e-02  val_mse=3.5985e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5985e-02)
+[step 1470000 | ep 3] train_mse=2.6885e-02  val_mse=3.5993e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1480000 | ep 3] train_mse=2.6641e-02  val_mse=3.5950e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5950e-02)
+[step 1490000 | ep 3] train_mse=2.6491e-02  val_mse=3.5981e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1500000 | ep 3] train_mse=2.6719e-02  val_mse=3.5963e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 1510000 | ep 3] train_mse=2.6293e-02  val_mse=3.5926e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5926e-02)
+[step 1520000 | ep 3] train_mse=2.6584e-02  val_mse=3.5915e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5915e-02)
+[step 1530000 | ep 3] train_mse=2.7329e-02  val_mse=3.5917e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1540000 | ep 3] train_mse=2.6770e-02  val_mse=3.5918e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 1550000 | ep 3] train_mse=2.6380e-02  val_mse=3.5893e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5893e-02)
+[step 1560000 | ep 3] train_mse=2.7245e-02  val_mse=3.5882e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5882e-02)
+[step 1570000 | ep 3] train_mse=2.6779e-02  val_mse=3.5910e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1580000 | ep 3] train_mse=2.6715e-02  val_mse=3.5878e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5878e-02)
+[step 1590000 | ep 3] train_mse=2.7491e-02  val_mse=3.5867e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5867e-02)
+[step 1600000 | ep 3] train_mse=2.6717e-02  val_mse=3.5828e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5828e-02)
+[step 1610000 | ep 3] train_mse=2.6597e-02  val_mse=3.5845e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1620000 | ep 3] train_mse=2.6555e-02  val_mse=3.5853e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 1630000 | ep 3] train_mse=2.6923e-02  val_mse=3.5816e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5816e-02)
+[step 1640000 | ep 3] train_mse=2.6534e-02  val_mse=3.5779e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5779e-02)
+[step 1650000 | ep 3] train_mse=2.6525e-02  val_mse=3.5802e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1660000 | ep 3] train_mse=2.6298e-02  val_mse=3.5790e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 1670000 | ep 3] train_mse=2.6606e-02  val_mse=3.5781e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 1680000 | ep 3] train_mse=2.6857e-02  val_mse=3.5755e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5755e-02)
+[step 1690000 | ep 3] train_mse=2.6163e-02  val_mse=3.5746e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5746e-02)
+[step 1700000 | ep 3] train_mse=2.6576e-02  val_mse=3.5781e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1710000 | ep 3] train_mse=2.6376e-02  val_mse=3.5761e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 1720000 | ep 3] train_mse=2.6412e-02  val_mse=3.5735e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5735e-02)
+[step 1730000 | ep 3] train_mse=2.6559e-02  val_mse=3.5729e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5729e-02)
+[step 1740000 | ep 3] train_mse=2.6691e-02  val_mse=3.5708e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5708e-02)
+[step 1750000 | ep 3] train_mse=2.6857e-02  val_mse=3.5704e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5704e-02)
+[step 1760000 | ep 3] train_mse=2.6785e-02  val_mse=3.5704e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5704e-02)
+[step 1770000 | ep 3] train_mse=2.6998e-02  val_mse=3.5695e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5695e-02)
+[step 1780000 | ep 3] train_mse=2.6474e-02  val_mse=3.5703e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1790000 | ep 3] train_mse=2.6606e-02  val_mse=3.5664e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5664e-02)
+[step 1800000 | ep 3] train_mse=2.6050e-02  val_mse=3.5684e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1810000 | ep 3] train_mse=2.7054e-02  val_mse=3.5645e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5645e-02)
+[step 1820000 | ep 3] train_mse=2.5923e-02  val_mse=3.5657e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1830000 | ep 3] train_mse=2.6208e-02  val_mse=3.5643e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5643e-02)
+[step 1840000 | ep 3] train_mse=2.6542e-02  val_mse=3.5623e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5623e-02)
+[step 1850000 | ep 3] train_mse=2.6247e-02  val_mse=3.5652e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1860000 | ep 3] train_mse=2.6304e-02  val_mse=3.5633e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 1870000 | ep 3] train_mse=2.5908e-02  val_mse=3.5584e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5584e-02)
+[step 1880000 | ep 3] train_mse=2.6834e-02  val_mse=3.5608e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1890000 | ep 3] train_mse=2.6077e-02  val_mse=3.5620e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 1900000 | ep 3] train_mse=2.6199e-02  val_mse=3.5653e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 1910000 | ep 3] train_mse=2.5799e-02  val_mse=3.5606e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 1920000 | ep 3] train_mse=2.6131e-02  val_mse=3.5584e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5584e-02)
+[step 1930000 | ep 3] train_mse=2.6292e-02  val_mse=3.5616e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 1940000 | ep 3] train_mse=2.5767e-02  val_mse=3.5589e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 1950000 | ep 3] train_mse=2.6569e-02  val_mse=3.5591e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 1960000 | ep 3] train_mse=2.6397e-02  val_mse=3.5563e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5563e-02)
+[step 1970000 | ep 3] train_mse=2.5994e-02  val_mse=3.5562e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5562e-02)
+[step 1980000 | ep 3] train_mse=2.6619e-02  val_mse=3.5548e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5548e-02)
+[step 1990000 | ep 3] train_mse=2.6581e-02  val_mse=3.5549e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2000000 | ep 3] train_mse=2.6461e-02  val_mse=3.5558e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2010000 | ep 3] train_mse=2.6469e-02  val_mse=3.5535e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5535e-02)
+[step 2020000 | ep 3] train_mse=2.6564e-02  val_mse=3.5536e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2030000 | ep 3] train_mse=2.6325e-02  val_mse=3.5518e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5518e-02)
+[step 2040000 | ep 3] train_mse=2.6642e-02  val_mse=3.5512e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5512e-02)
+[step 2050000 | ep 3] train_mse=2.6661e-02  val_mse=3.5502e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5502e-02)
+[step 2060000 | ep 3] train_mse=2.6017e-02  val_mse=3.5474e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5474e-02)
+[step 2070000 | ep 3] train_mse=2.6649e-02  val_mse=3.5449e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5449e-02)
+[step 2080000 | ep 3] train_mse=2.5788e-02  val_mse=3.5460e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2090000 | ep 3] train_mse=2.6705e-02  val_mse=3.5472e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2100000 | ep 3] train_mse=2.6488e-02  val_mse=3.5429e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5429e-02)
+Epoch 3 done  (step=2109987)
+[step 2110000 | ep 4] train_mse=2.6438e-02  val_mse=3.5461e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2120000 | ep 4] train_mse=2.6659e-02  val_mse=3.5436e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2130000 | ep 4] train_mse=2.6375e-02  val_mse=3.5450e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 2140000 | ep 4] train_mse=2.6283e-02  val_mse=3.5426e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5426e-02)
+[step 2150000 | ep 4] train_mse=2.5867e-02  val_mse=3.5402e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5402e-02)
+[step 2160000 | ep 4] train_mse=2.6425e-02  val_mse=3.5413e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2170000 | ep 4] train_mse=2.6208e-02  val_mse=3.5419e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2180000 | ep 4] train_mse=2.6436e-02  val_mse=3.5390e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5390e-02)
+[step 2190000 | ep 4] train_mse=2.6179e-02  val_mse=3.5407e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2200000 | ep 4] train_mse=2.6316e-02  val_mse=3.5375e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5375e-02)
+[step 2210000 | ep 4] train_mse=2.6022e-02  val_mse=3.5413e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2220000 | ep 4] train_mse=2.6209e-02  val_mse=3.5370e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5370e-02)
+[step 2230000 | ep 4] train_mse=2.6464e-02  val_mse=3.5348e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5348e-02)
+[step 2240000 | ep 4] train_mse=2.6146e-02  val_mse=3.5384e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2250000 | ep 4] train_mse=2.6405e-02  val_mse=3.5378e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2260000 | ep 4] train_mse=2.6134e-02  val_mse=3.5385e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 2270000 | ep 4] train_mse=2.6272e-02  val_mse=3.5368e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 2280000 | ep 4] train_mse=2.6176e-02  val_mse=3.5320e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5320e-02)
+[step 2290000 | ep 4] train_mse=2.6035e-02  val_mse=3.5327e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2300000 | ep 4] train_mse=2.6465e-02  val_mse=3.5339e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2310000 | ep 4] train_mse=2.6265e-02  val_mse=3.5309e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5309e-02)
+[step 2320000 | ep 4] train_mse=2.6131e-02  val_mse=3.5323e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2330000 | ep 4] train_mse=2.6593e-02  val_mse=3.5326e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2340000 | ep 4] train_mse=2.6296e-02  val_mse=3.5320e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 2350000 | ep 4] train_mse=2.5896e-02  val_mse=3.5286e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5286e-02)
+[step 2360000 | ep 4] train_mse=2.5738e-02  val_mse=3.5295e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2370000 | ep 4] train_mse=2.6671e-02  val_mse=3.5297e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2380000 | ep 4] train_mse=2.6632e-02  val_mse=3.5268e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5268e-02)
+[step 2390000 | ep 4] train_mse=2.6264e-02  val_mse=3.5256e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5256e-02)
+[step 2400000 | ep 4] train_mse=2.6806e-02  val_mse=3.5266e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2410000 | ep 4] train_mse=2.6430e-02  val_mse=3.5280e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2420000 | ep 4] train_mse=2.6441e-02  val_mse=3.5248e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5248e-02)
+[step 2430000 | ep 4] train_mse=2.6395e-02  val_mse=3.5245e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5245e-02)
+[step 2440000 | ep 4] train_mse=2.6244e-02  val_mse=3.5266e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2450000 | ep 4] train_mse=2.6436e-02  val_mse=3.5265e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2460000 | ep 4] train_mse=2.6307e-02  val_mse=3.5242e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5242e-02)
+[step 2470000 | ep 4] train_mse=2.5998e-02  val_mse=3.5241e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5241e-02)
+[step 2480000 | ep 4] train_mse=2.5703e-02  val_mse=3.5214e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5214e-02)
+[step 2490000 | ep 4] train_mse=2.6084e-02  val_mse=3.5191e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5191e-02)
+[step 2500000 | ep 4] train_mse=2.6131e-02  val_mse=3.5217e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2510000 | ep 4] train_mse=2.6031e-02  val_mse=3.5180e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5180e-02)
+[step 2520000 | ep 4] train_mse=2.5851e-02  val_mse=3.5182e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2530000 | ep 4] train_mse=2.6347e-02  val_mse=3.5172e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5172e-02)
+[step 2540000 | ep 4] train_mse=2.6357e-02  val_mse=3.5176e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2550000 | ep 4] train_mse=2.6790e-02  val_mse=3.5191e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2560000 | ep 4] train_mse=2.6265e-02  val_mse=3.5175e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 2570000 | ep 4] train_mse=2.5926e-02  val_mse=3.5150e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5150e-02)
+[step 2580000 | ep 4] train_mse=2.6361e-02  val_mse=3.5157e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2590000 | ep 4] train_mse=2.5829e-02  val_mse=3.5158e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2600000 | ep 4] train_mse=2.5968e-02  val_mse=3.5161e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 2610000 | ep 4] train_mse=2.6288e-02  val_mse=3.5153e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 2620000 | ep 4] train_mse=2.5968e-02  val_mse=3.5165e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (5/8)
+[step 2630000 | ep 4] train_mse=2.6805e-02  val_mse=3.5159e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (6/8)
+[step 2640000 | ep 4] train_mse=2.6052e-02  val_mse=3.5111e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5111e-02)
+[step 2650000 | ep 4] train_mse=2.5954e-02  val_mse=3.5116e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2660000 | ep 4] train_mse=2.5773e-02  val_mse=3.5133e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2670000 | ep 4] train_mse=2.6256e-02  val_mse=3.5122e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 2680000 | ep 4] train_mse=2.6020e-02  val_mse=3.5133e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 2690000 | ep 4] train_mse=2.5710e-02  val_mse=3.5105e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5105e-02)
+[step 2700000 | ep 4] train_mse=2.6246e-02  val_mse=3.5136e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2710000 | ep 4] train_mse=2.6283e-02  val_mse=3.5113e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2720000 | ep 4] train_mse=2.5999e-02  val_mse=3.5133e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 2730000 | ep 4] train_mse=2.6213e-02  val_mse=3.5090e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5090e-02)
+[step 2740000 | ep 4] train_mse=2.6429e-02  val_mse=3.5092e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2750000 | ep 4] train_mse=2.6003e-02  val_mse=3.5095e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2760000 | ep 4] train_mse=2.6258e-02  val_mse=3.5098e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 2770000 | ep 4] train_mse=2.6238e-02  val_mse=3.5086e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5086e-02)
+[step 2780000 | ep 4] train_mse=2.6306e-02  val_mse=3.5064e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5064e-02)
+[step 2790000 | ep 4] train_mse=2.6125e-02  val_mse=3.5065e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2800000 | ep 4] train_mse=2.6316e-02  val_mse=3.5076e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2810000 | ep 4] train_mse=2.6162e-02  val_mse=3.5075e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+Epoch 4 done  (step=2813316)
+[step 2820000 | ep 5] train_mse=2.5881e-02  val_mse=3.5039e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5039e-02)
+[step 2830000 | ep 5] train_mse=2.6467e-02  val_mse=3.5054e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2840000 | ep 5] train_mse=2.6064e-02  val_mse=3.5087e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2850000 | ep 5] train_mse=2.5427e-02  val_mse=3.5074e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 2860000 | ep 5] train_mse=2.6058e-02  val_mse=3.5045e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 2870000 | ep 5] train_mse=2.6006e-02  val_mse=3.5055e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (5/8)
+[step 2880000 | ep 5] train_mse=2.5996e-02  val_mse=3.5061e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (6/8)
+[step 2890000 | ep 5] train_mse=2.5888e-02  val_mse=3.5055e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (7/8)
+[step 2900000 | ep 5] train_mse=2.6002e-02  val_mse=3.5039e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5039e-02)
+[step 2910000 | ep 5] train_mse=2.6044e-02  val_mse=3.5034e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5034e-02)
+[step 2920000 | ep 5] train_mse=2.6072e-02  val_mse=3.5023e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5023e-02)
+[step 2930000 | ep 5] train_mse=2.6190e-02  val_mse=3.5034e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2940000 | ep 5] train_mse=2.5795e-02  val_mse=3.5016e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5016e-02)
+[step 2950000 | ep 5] train_mse=2.5801e-02  val_mse=3.5000e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.5000e-02)
+[step 2960000 | ep 5] train_mse=2.5936e-02  val_mse=3.5003e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 2970000 | ep 5] train_mse=2.6154e-02  val_mse=3.5003e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 2980000 | ep 5] train_mse=2.5996e-02  val_mse=3.4974e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4974e-02)
+[step 2990000 | ep 5] train_mse=2.5919e-02  val_mse=3.5014e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3000000 | ep 5] train_mse=2.6088e-02  val_mse=3.4968e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4968e-02)
+[step 3010000 | ep 5] train_mse=2.5961e-02  val_mse=3.4996e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3020000 | ep 5] train_mse=2.6023e-02  val_mse=3.4965e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4965e-02)
+[step 3030000 | ep 5] train_mse=2.5869e-02  val_mse=3.4962e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4962e-02)
+[step 3040000 | ep 5] train_mse=2.6108e-02  val_mse=3.4963e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3050000 | ep 5] train_mse=2.6045e-02  val_mse=3.4979e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3060000 | ep 5] train_mse=2.5997e-02  val_mse=3.4960e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4960e-02)
+[step 3070000 | ep 5] train_mse=2.6064e-02  val_mse=3.4950e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4950e-02)
+[step 3080000 | ep 5] train_mse=2.5981e-02  val_mse=3.4954e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3090000 | ep 5] train_mse=2.5951e-02  val_mse=3.4948e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4948e-02)
+[step 3100000 | ep 5] train_mse=2.6140e-02  val_mse=3.4949e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3110000 | ep 5] train_mse=2.5706e-02  val_mse=3.4938e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4938e-02)
+[step 3120000 | ep 5] train_mse=2.5533e-02  val_mse=3.4917e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4917e-02)
+[step 3130000 | ep 5] train_mse=2.5996e-02  val_mse=3.4925e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3140000 | ep 5] train_mse=2.5657e-02  val_mse=3.4918e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3150000 | ep 5] train_mse=2.5719e-02  val_mse=3.4922e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3160000 | ep 5] train_mse=2.5932e-02  val_mse=3.4909e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4909e-02)
+[step 3170000 | ep 5] train_mse=2.5956e-02  val_mse=3.4889e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4889e-02)
+[step 3180000 | ep 5] train_mse=2.5804e-02  val_mse=3.4901e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3190000 | ep 5] train_mse=2.5977e-02  val_mse=3.4884e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4884e-02)
+[step 3200000 | ep 5] train_mse=2.6014e-02  val_mse=3.4910e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3210000 | ep 5] train_mse=2.6481e-02  val_mse=3.4912e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3220000 | ep 5] train_mse=2.5936e-02  val_mse=3.4908e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3230000 | ep 5] train_mse=2.5962e-02  val_mse=3.4900e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 3240000 | ep 5] train_mse=2.5496e-02  val_mse=3.4882e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4882e-02)
+[step 3250000 | ep 5] train_mse=2.5302e-02  val_mse=3.4874e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4874e-02)
+[step 3260000 | ep 5] train_mse=2.5561e-02  val_mse=3.4874e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4874e-02)
+[step 3270000 | ep 5] train_mse=2.5919e-02  val_mse=3.4863e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4863e-02)
+[step 3280000 | ep 5] train_mse=2.5631e-02  val_mse=3.4881e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3290000 | ep 5] train_mse=2.5963e-02  val_mse=3.4856e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4856e-02)
+[step 3300000 | ep 5] train_mse=2.6035e-02  val_mse=3.4860e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3310000 | ep 5] train_mse=2.6164e-02  val_mse=3.4832e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4832e-02)
+[step 3320000 | ep 5] train_mse=2.5906e-02  val_mse=3.4827e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4827e-02)
+[step 3330000 | ep 5] train_mse=2.5624e-02  val_mse=3.4835e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3340000 | ep 5] train_mse=2.5675e-02  val_mse=3.4843e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3350000 | ep 5] train_mse=2.5979e-02  val_mse=3.4842e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3360000 | ep 5] train_mse=2.5450e-02  val_mse=3.4845e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 3370000 | ep 5] train_mse=2.5817e-02  val_mse=3.4807e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4807e-02)
+[step 3380000 | ep 5] train_mse=2.6124e-02  val_mse=3.4830e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3390000 | ep 5] train_mse=2.5657e-02  val_mse=3.4793e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4793e-02)
+[step 3400000 | ep 5] train_mse=2.6203e-02  val_mse=3.4809e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3410000 | ep 5] train_mse=2.5836e-02  val_mse=3.4829e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3420000 | ep 5] train_mse=2.5542e-02  val_mse=3.4814e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3430000 | ep 5] train_mse=2.5524e-02  val_mse=3.4800e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 3440000 | ep 5] train_mse=2.5802e-02  val_mse=3.4822e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (5/8)
+[step 3450000 | ep 5] train_mse=2.5972e-02  val_mse=3.4804e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (6/8)
+[step 3460000 | ep 5] train_mse=2.5673e-02  val_mse=3.4787e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4787e-02)
+[step 3470000 | ep 5] train_mse=2.6003e-02  val_mse=3.4749e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4749e-02)
+[step 3480000 | ep 5] train_mse=2.5761e-02  val_mse=3.4763e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3490000 | ep 5] train_mse=2.5942e-02  val_mse=3.4783e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3500000 | ep 5] train_mse=2.6030e-02  val_mse=3.4767e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3510000 | ep 5] train_mse=2.5596e-02  val_mse=3.4737e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4737e-02)
+Epoch 5 done  (step=3516645)
+[step 3520000 | ep 6] train_mse=2.5358e-02  val_mse=3.4743e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3530000 | ep 6] train_mse=2.6134e-02  val_mse=3.4749e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3540000 | ep 6] train_mse=2.5630e-02  val_mse=3.4733e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4733e-02)
+[step 3550000 | ep 6] train_mse=2.5734e-02  val_mse=3.4744e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3560000 | ep 6] train_mse=2.6084e-02  val_mse=3.4744e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3570000 | ep 6] train_mse=2.5861e-02  val_mse=3.4738e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3580000 | ep 6] train_mse=2.5913e-02  val_mse=3.4711e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4711e-02)
+[step 3590000 | ep 6] train_mse=2.6220e-02  val_mse=3.4715e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3600000 | ep 6] train_mse=2.5886e-02  val_mse=3.4715e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3610000 | ep 6] train_mse=2.5705e-02  val_mse=3.4720e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3620000 | ep 6] train_mse=2.5667e-02  val_mse=3.4731e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 3630000 | ep 6] train_mse=2.6059e-02  val_mse=3.4691e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4691e-02)
+[step 3640000 | ep 6] train_mse=2.5545e-02  val_mse=3.4699e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3650000 | ep 6] train_mse=2.5943e-02  val_mse=3.4721e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3660000 | ep 6] train_mse=2.5291e-02  val_mse=3.4706e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3670000 | ep 6] train_mse=2.5150e-02  val_mse=3.4676e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4676e-02)
+[step 3680000 | ep 6] train_mse=2.5489e-02  val_mse=3.4701e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3690000 | ep 6] train_mse=2.5726e-02  val_mse=3.4688e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3700000 | ep 6] train_mse=2.5424e-02  val_mse=3.4691e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3710000 | ep 6] train_mse=2.5850e-02  val_mse=3.4683e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 3720000 | ep 6] train_mse=2.5998e-02  val_mse=3.4701e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (5/8)
+[step 3730000 | ep 6] train_mse=2.5754e-02  val_mse=3.4653e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4653e-02)
+[step 3740000 | ep 6] train_mse=2.5215e-02  val_mse=3.4667e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3750000 | ep 6] train_mse=2.5840e-02  val_mse=3.4671e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3760000 | ep 6] train_mse=2.5837e-02  val_mse=3.4643e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4643e-02)
+[step 3770000 | ep 6] train_mse=2.5573e-02  val_mse=3.4656e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3780000 | ep 6] train_mse=2.5699e-02  val_mse=3.4631e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4631e-02)
+[step 3790000 | ep 6] train_mse=2.5195e-02  val_mse=3.4657e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3800000 | ep 6] train_mse=2.5736e-02  val_mse=3.4674e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3810000 | ep 6] train_mse=2.5749e-02  val_mse=3.4659e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3820000 | ep 6] train_mse=2.5286e-02  val_mse=3.4639e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 3830000 | ep 6] train_mse=2.5920e-02  val_mse=3.4626e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4626e-02)
+[step 3840000 | ep 6] train_mse=2.5739e-02  val_mse=3.4635e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3850000 | ep 6] train_mse=2.6017e-02  val_mse=3.4639e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3860000 | ep 6] train_mse=2.5812e-02  val_mse=3.4617e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4617e-02)
+[step 3870000 | ep 6] train_mse=2.4896e-02  val_mse=3.4641e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3880000 | ep 6] train_mse=2.5525e-02  val_mse=3.4623e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3890000 | ep 6] train_mse=2.6103e-02  val_mse=3.4615e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4615e-02)
+[step 3900000 | ep 6] train_mse=2.5608e-02  val_mse=3.4629e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3910000 | ep 6] train_mse=2.5829e-02  val_mse=3.4621e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3920000 | ep 6] train_mse=2.5667e-02  val_mse=3.4643e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3930000 | ep 6] train_mse=2.6062e-02  val_mse=3.4598e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4598e-02)
+[step 3940000 | ep 6] train_mse=2.5504e-02  val_mse=3.4628e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3950000 | ep 6] train_mse=2.6034e-02  val_mse=3.4591e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4591e-02)
+[step 3960000 | ep 6] train_mse=2.5471e-02  val_mse=3.4626e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 3970000 | ep 6] train_mse=2.5776e-02  val_mse=3.4603e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 3980000 | ep 6] train_mse=2.5588e-02  val_mse=3.4607e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 3990000 | ep 6] train_mse=2.5987e-02  val_mse=3.4573e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> saved best checkpoint (val_mse=3.4573e-02)
+[step 4000000 | ep 6] train_mse=2.5783e-02  val_mse=3.4592e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (1/8)
+[step 4010000 | ep 6] train_mse=2.5909e-02  val_mse=3.4607e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (2/8)
+[step 4020000 | ep 6] train_mse=2.5523e-02  val_mse=3.4612e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (3/8)
+[step 4030000 | ep 6] train_mse=2.5686e-02  val_mse=3.4581e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (4/8)
+[step 4040000 | ep 6] train_mse=2.5539e-02  val_mse=3.4575e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (5/8)
+[step 4050000 | ep 6] train_mse=2.6055e-02  val_mse=3.4600e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (6/8)
+[step 4060000 | ep 6] train_mse=2.5996e-02  val_mse=3.4581e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (7/8)
+[step 4070000 | ep 6] train_mse=2.5815e-02  val_mse=3.4596e-02  val_L0=48.0  dead=0.000  n_dead=0  aux=0.000e+00
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png
+  -> no improvement (8/8)
+
+Early stopping.
+  -> saved training curves to checkpoints_topk_aux_K48/training_curves.png

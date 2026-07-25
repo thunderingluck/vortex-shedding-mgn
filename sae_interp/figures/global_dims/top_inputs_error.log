@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/orcd/home/002/evag/code/physicsnemo/examples/cfd/vortex_shedding_mgn/sae_interp/top_activating_inputs.py", line 331, in <module>
+    main()
+  File "/orcd/home/002/evag/code/physicsnemo/examples/cfd/vortex_shedding_mgn/sae_interp/top_activating_inputs.py", line 290, in main
+    d = np.load(os.path.join(phys_dir, fname))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/evag/miniconda3/envs/nemo311/lib/python3.11/site-packages/numpy/lib/npyio.py", line 436, in load
+    raise EOFError("No data left in file")
+EOFError: No data left in file

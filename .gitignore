@@ -15,8 +15,8 @@ checkpoints/
 *.pth
 sae_interp/checkpoints_rand_*/
 sae_interp/checkpoints_topk_K*/
+sae_interp/checkpoints_topk_aux_K*/
 sae_interp/figures/*
-!sae_interp/figures/
 
 
 # ==== sbatch scripts ====
@@ -48,11 +48,44 @@ hydra/
 *.mp4
 .DS_Store
 
-# ==== Exceptions ====
-!sae_interp/checkpoints_rand_3e-4_long/
-!sae_interp/checkpoints_rand_3e-4_long/*.pt
-!sae_interp/checkpoints_rand_3e-4_long/*.csv
-!sae_interp/checkpoints_rand_3e-4_long/*.png
-!sae_interp/figures/global_dims/
+# ==== Exceptions: SAE checkpoints (weights, metrics, curves, run logs) ====
+!sae_interp/checkpoints_rand_*/
+!sae_interp/checkpoints_rand_*/*.pt
+!sae_interp/checkpoints_rand_*/*.csv
+!sae_interp/checkpoints_rand_*/*.png
+!sae_interp/checkpoints_rand_*/*.log
+!sae_interp/checkpoints_rand_*/*.log_*
+!sae_interp/checkpoints_rand_*/error.log_*
+!sae_interp/checkpoints_topk_K*/
+!sae_interp/checkpoints_topk_K*/*.pt
+!sae_interp/checkpoints_topk_K*/*.csv
+!sae_interp/checkpoints_topk_K*/*.png
+!sae_interp/checkpoints_topk_K*/*.log
+!sae_interp/checkpoints_topk_aux_K*/
+!sae_interp/checkpoints_topk_aux_K*/*.pt
+!sae_interp/checkpoints_topk_aux_K*/*.csv
+!sae_interp/checkpoints_topk_aux_K*/*.png
+!sae_interp/checkpoints_topk_aux_K*/*.log
+
+# ==== Exceptions: figures (top-level + all subdirs) ====
+!sae_interp/figures/
 !sae_interp/figures/*.png
+!sae_interp/figures/*.npy
+!sae_interp/figures/global_dims/
 !sae_interp/figures/global_dims/*.png
+!sae_interp/figures/global_dims/*.npy
+!sae_interp/figures/global_dims/*.txt
+!sae_interp/figures/global_dims/*.md
+!sae_interp/figures/global_dims/*.log
+!sae_interp/figures/multi_traj/
+!sae_interp/figures/multi_traj/*.png
+!sae_interp/figures/multi_traj/*.md
+!sae_interp/figures/phys_analysis/
+!sae_interp/figures/phys_analysis/*.png
+!sae_interp/figures/phys_analysis/*.csv
+!sae_interp/figures/phys_analysis/*.md
+!sae_interp/figures/phys_analysis/*.log
+
+# ==== Exceptions: reproducibility scripts ====
+!sae_interp/*.sh
+!extract_phys.sh

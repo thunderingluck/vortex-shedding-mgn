@@ -1,0 +1,2 @@
+/orcd/home/002/evag/code/physicsnemo/examples/cfd/vortex_shedding_mgn/sae_interp/global_dim_analysis.py:342: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  bp = ax.boxplot(data, labels=labels, patch_artist=True,

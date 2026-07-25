@@ -1,0 +1,13 @@
+device: cuda
+loaded SAE  d_in=128  d_hid=1024
+top dims: [359, 650, 102, 239, 120]
+found 100 trajectories
+using 100 trajectories
+  traj 0000 (1/100): 599 steps, 1,151,877 node-timesteps
+  traj 0001 (2/100): 599 steps, 1,052,443 node-timesteps
+  traj 0002 (3/100): 599 steps, 1,118,932 node-timesteps
+  traj 0003 (4/100): 599 steps, 1,210,579 node-timesteps
+  traj 0004 (5/100): 599 steps, 1,103,957 node-timesteps
+  traj 0005 (6/100): 599 steps, 1,138,699 node-timesteps
+  traj 0006 (7/100): 599 steps, 1,054,240 node-timesteps
+  traj 0007 (8/100): 599 steps, 1,162,060 node-timesteps

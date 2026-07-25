@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/orcd/home/002/evag/code/physicsnemo/examples/cfd/vortex_shedding_mgn/sae_interp/analyze_features.py", line 388, in <module>
+    main()
+  File "/orcd/home/002/evag/code/physicsnemo/examples/cfd/vortex_shedding_mgn/sae_interp/analyze_features.py", line 337, in main
+    snaps = load_trajectory(phys_dir, tid)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/orcd/home/002/evag/code/physicsnemo/examples/cfd/vortex_shedding_mgn/sae_interp/analyze_features.py", line 48, in load_trajectory
+    d = np.load(os.path.join(phys_dir, fname))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/evag/miniconda3/envs/nemo311/lib/python3.11/site-packages/numpy/lib/npyio.py", line 436, in load
+    raise EOFError("No data left in file")
+EOFError: No data left in file

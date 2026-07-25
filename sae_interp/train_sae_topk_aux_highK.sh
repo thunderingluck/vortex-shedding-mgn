@@ -1,0 +1,38 @@
+#!/bin/bash
+#SBATCH --job-name=sae_topk_aux_highK
+#SBATCH --output=checkpoints_topk_aux_K%a/output.log
+#SBATCH --error=checkpoints_topk_aux_K%a/error.log
+#SBATCH --array=128,150
+#SBATCH --time=06:00:00
+#SBATCH --gres=gpu:1
+#SBATCH --mem=256G
+#SBATCH --cpus-per-task=4
+
+# High-K Top-K runs to L0-match the L1 SAE (L0 ≈ 151 in checkpoints_rand_1e-4_p20).
+# SLURM_ARRAY_TASK_ID is the K value directly (128 or 150).
+K=$SLURM_ARRAY_TASK_ID
+CKPT_DIR=checkpoints_topk_aux_K${K}
+
+mkdir -p ${CKPT_DIR}
+
+cd /home/evag/code/physicsnemo/examples/cfd/vortex_shedding_mgn/sae_interp
+source ~/miniconda3/bin/activate
+conda activate nemo311
+
+RESUME=""
+if [ -f "${CKPT_DIR}/sae_latest.pt" ]; then
+    RESUME="--resume_ckpt ${CKPT_DIR}/sae_latest.pt"
+    echo "Resuming from ${CKPT_DIR}/sae_latest.pt"
+else
+    echo "Starting fresh training with K=${K} + auxiliary dead-feature loss"
+fi
+
+python -u train_sae_topk.py \
+    --k              ${K} \
+    --emb_dir        ../sae_embeddings/consolidated \
+    --ckpt_dir       ${CKPT_DIR} \
+    --val_every      10000 \
+    --patience       8 \
+    --aux_alpha      0.03125 \
+    --dead_threshold 1e-4 \
+    ${RESUME}

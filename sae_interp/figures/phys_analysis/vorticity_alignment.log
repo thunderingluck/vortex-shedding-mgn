@@ -1,0 +1,11 @@
+device: cuda
+loaded SAE  d_in=128  d_hid=1024  expansion=8
+evaluating 100 trajectories  K=50  eta=100  vortex_pct=10%
+  traj 0000: 599 snaps, 1923 nodes ... best SAE F1=0.2822
+  traj 0001: 599 snaps, 1757 nodes ... best SAE F1=0.3349
+  traj 0002: 599 snaps, 1868 nodes ... best SAE F1=0.3629
+  traj 0003: 599 snaps, 2021 nodes ... best SAE F1=0.3950
+  traj 0004: 599 snaps, 1843 nodes ... best SAE F1=0.3194
+  traj 0005: 599 snaps, 1901 nodes ... best SAE F1=0.4377
+  traj 0006: 599 snaps, 1760 nodes ... best SAE F1=0.2542
+  traj 0007: 599 snaps, 1940 nodes ... best SAE F1=0.1385
